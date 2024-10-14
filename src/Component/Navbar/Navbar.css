@@ -1,0 +1,48 @@
+.navbar {
+    background-color: #e6f0ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 10px; /* Cách đều các cạnh 5px */
+  }
+
+  
+  .navbar-logo h1 {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar-links li a {
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .navbar-auth {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar-auth .signin, .navbar-auth .signup {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .navbar-auth .signin {
+    color: #000;
+  }
+  
+  .navbar-auth .signup {
+    background-color: #001f54;
+    color: #fff;
+  }
+  
