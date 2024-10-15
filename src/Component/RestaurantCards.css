@@ -1,0 +1,23 @@
+.restaurant-cards {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép thẻ chuyển xuống dòng mới nếu không đủ không gian */
+    justify-content: center; /* Căn giữa các thẻ */
+    gap: 20px; /* Khoảng cách giữa các thẻ */
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Đặt kích thước cố định cho các thẻ */
+    padding: 10px;
+    text-align: center;
+}
+
+.card-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}

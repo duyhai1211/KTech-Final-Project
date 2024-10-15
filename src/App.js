@@ -1,6 +1,11 @@
 import React from 'react';
 import Navbar from './Component/Navbar/Navbar'; // Đường dẫn đúng đến Navbar.js
-import './App.css';  // Đảm bảo App.css được liên kết
+import './App.css'; // Đảm bảo App.css được liên kết
+
+// Import các component bạn muốn hiển thị
+import Home from './Component/Home';
+import RestaurantCards from './Component/RestaurantCards';
+import SearchBar from './Component/SearchBar';
 
 function App() {
   return (
@@ -8,8 +13,10 @@ function App() {
       {/* Hiển thị Navbar */}
       <Navbar />
       
-      {/* Nội dung khác của trang */}
-      <h1>Welcome to the Restaurant Reservation System</h1>
+      {/* Hiển thị các thành phần khác */}
+      <Home />
+      <SearchBar />
+      <RestaurantCards />
     </div>
   );
 }
