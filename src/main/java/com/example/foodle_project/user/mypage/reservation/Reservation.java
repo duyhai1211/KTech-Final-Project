@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -34,11 +35,8 @@ public class Reservation {
 
 
     private String name;
-
     private String phone;
-
     private LocalDate date;
-
     private LocalTime reservationTime;
 
     // 예약 수량
@@ -47,6 +45,7 @@ public class Reservation {
     // 식당 이름
     private String restaurantName;
 
+    // 예앿 상태
     private String status;
 
     @Builder
@@ -58,17 +57,18 @@ public class Reservation {
         this.partySize = partySize;
         this.status = status;
     }
+    
     public Long getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(Long reservationId) {
-        this.reservationId = reservationId;
-    }
+
 
     public Restaurant getRestaurant() {
         return restaurant;
     }
+
+ 
 
 
     public String getName() {
@@ -95,8 +95,7 @@ public class Reservation {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate(LocalDateTime date) {
     }
 
     public LocalTime getReservationTime() {
@@ -115,10 +114,7 @@ public class Reservation {
         this.partySize = partySize;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-        restaurant.getReservations().add(this);
-    }
+
 
     public void setUser(User user) {
         this.user = user;
@@ -130,8 +126,8 @@ public class Reservation {
     }
 
     public void cancelReservation() {
-        if (status.equals("PENDING")) {
-            status = "CANCELLED";
+        if (status.equals("저리중")) {
+            status = "최소된";
         } else {
             throw new IllegalStateException("Reservation cannot be cancelled.");
         }
@@ -152,5 +148,9 @@ public class Reservation {
 
     public User getUser() {
         return user;
+    }
+
+
+    public void setRestaurant(Restaurant restaurant) {
     }
 }

@@ -30,15 +30,15 @@ public class UserService {
 
 
     public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return Optional.ofNullable(userRepository.findByUsername(username));
     }
 
-    public Optional<User> findById(Long memberId) {
-        return userRepository.findById(memberId);
+    public Optional<User> findById(Long userId) {
+        return userRepository.findById(userId);
     }
 
-    public User findByIdElseThrow(Long memberId) {
-        return findById(memberId).orElseThrow();
+    public User findByIdElseThrow(Long userId) {
+        return findById(userId).orElseThrow();
     }
 
     public Optional<User> findByNickname(String nickname) {
@@ -69,46 +69,66 @@ public class UserService {
         this.userRepository.save(user);
     }
 
+    public UserDto getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại"));
+        return UserDto.fromUserEntity(user);
+    }
 
-//    // update
-//    public void updateUser(UserDto userDto) {
-//        User user = userRepository.findById(userDto.getId())
-//                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+
+    // update
+//    // Cập nhật thông tin người dùng (chỉnh sửa thông tin)
+//    public User updateUser(Long userId, UserDto userDto) {
+//        User user = findById(userId);
+//
+//        // Cập nhật thông tin từ userDto vào đối tượng User
 //        user.setNickname(userDto.getNickname());
-//        user.setUsername(userDto.getUsername());
 //        user.setEmail(userDto.getEmail());
-//        user.setAge(userDto.getAge());
 //        user.setPhone(userDto.getPhone());
-//        if (!userDto.getPassword().isEmpty()) {
-//            String encPassword = this.passwordEncoder.encode(userDto.getPassword());
+//
+//        if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+//            String encPassword = passwordEncoder.encode(userDto.getPassword());
 //            user.setPassword(encPassword);
 //        }
 //
-//        this.userRepository.save(user);
+//        return userRepository.save(user); // Lưu thông tin người dùng đã cập nhật
 //    }
 
-    // update
-    public Data<User> edit(UserDto userDto, Long userId) {
-        String nickname = userDto.getNickname();
-        String password = userDto.getPassword();
-        String email = userDto.getEmail();
-        String phone = userDto.getPhone();
-
-
-        Optional<User> opMember = findById(userId);
-        if (opMember.isEmpty()) {
-            return Data.of("F-1", "존재하지않는 회원입니다.");
-        }
-        User user = opMember.get();
-
-        if (!user.getNickname().equals(nickname) && findByNickname(nickname).isPresent()) {
-            return Data.of("F-3", "해당 닉네임(%s)은 이미 사용중입니다.".formatted(nickname));
+    public UserDto updateUser(Long id, UserDto userDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại"));
+        user.setNickname(userDto.getNickname());
+        user.setEmail(userDto.getEmail());
+        user.setAge(userDto.getAge());
+        user.setPhone(userDto.getPhone());
+        if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+            String encPassword = this.passwordEncoder.encode(userDto.getPassword());
+            user.setPassword(encPassword);
         }
 
-        user.updateProfile(nickname, email, phone, password);
-
-        return Data.of("S-2", "내 정보 수정이 완료되었습니다.", user);
-
+        User updatedUser = this.userRepository.save(user);
+        return UserDto.fromUserEntity(updatedUser);
     }
-  }
+
+    @Transactional
+    public UserDto registerOwner(UserDto userDto) {
+        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+            throw new RuntimeException("Email đã tồn tại");
+        }
+        String rawPassword = userDto.getPassword();
+        String encPassword = this.passwordEncoder.encode(rawPassword);
+        User owner = new User();
+        owner.setUsername((userDto.getUsername()));
+        owner.setEmail(userDto.getEmail());
+        owner.setPassword(encPassword);
+        owner.setRole(Role.ROLE_OWNER);
+
+        User savedOwner = userRepository.save(owner);
+        return new UserDto(savedOwner);
+    }
+
+  
+
+}
 

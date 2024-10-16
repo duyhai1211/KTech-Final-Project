@@ -30,8 +30,7 @@ public class WebSecurityConfig {
                             "/users/loginForm",
                             "/users/joinForm",
                             "/users/join",
-                            "/users/test/login",
-                            "/users/test/oauth/login")
+                                    "/users/register"   )
                             .permitAll();
                     auth.requestMatchers("/users/edit/**")
                             .hasRole("USER");

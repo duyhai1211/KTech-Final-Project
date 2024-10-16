@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Builder
 @Getter
@@ -42,7 +43,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    private String userImgUrl;
+    private String profileImg;
     private String provider;
     private String providerId;
     private boolean enabled;
@@ -79,7 +80,3 @@ public class User {
 
     }
 }
-
-
-
-

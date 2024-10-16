@@ -1,236 +1,174 @@
 package com.example.foodle_project.restaurant.retaurant;
 
 import com.example.foodle_project.restaurant.address.entity.Address;
+import com.example.foodle_project.restaurant.address.repo.AddressRepository;
 import com.example.foodle_project.restaurant.image.RestaurantImage;
-import com.example.foodle_project.restaurant.retaurant.dto.RestaurantRegisterDto;
-import com.example.foodle_project.restaurant.retaurant.dto.RestaurantUpdateDto;
+import com.example.foodle_project.restaurant.image.RestaurantImageRepository;
+import com.example.foodle_project.restaurant.menu.dto.MenuDto;
+import com.example.foodle_project.restaurant.menu.entity.Menu;
+import com.example.foodle_project.restaurant.menu.repo.MenuRepository;
+import com.example.foodle_project.restaurant.retaurant.dto.RestaurantDto;
 import com.example.foodle_project.restaurant.retaurant.entity.Restaurant;
+import com.example.foodle_project.restaurant.retaurant.entity.RestaurantType;
+import com.example.foodle_project.restaurant.retaurant.repo.RestaurantRepository;
+import com.example.foodle_project.user.mypage.reservation.Reservation;
+import com.example.foodle_project.user.mypage.reservation.ReservationRepository;
 import com.example.foodle_project.user.mypage.review.ReviewRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityManager;
+import com.example.foodle_project.user.mypage.review.entity.Review;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final AddressRepository addressRepository;
-
-    private final RestaurantImageRepository restaurantImageRepository;
-    private final S3Uploader s3Uploader;
-
     private final MenuRepository menuRepository;
-    private final ReviewRepository reviewRepository;
-
-    @Value("${cloud.ncp.s3.dir}")
-    private String dir;
-
-    private final EntityManager em;
+    private final RestaurantImageRepository restaurantImageRepository;
 
 
-    public Restaurant save(RestaurantRegisterDto restaurantRegisterDto, Address address, MultipartFile multipartFiles) throws IOException {
-        //주소 뽑아내기
-//        Optional<Address> findAddress = getFindAddress(restaurantRegisterDto);
 
+    // Tạo mới một nhà hàng
+    public Restaurant createRestaurant(RestaurantDto restaurantDto) {
+        Address address = new Address(restaurantDto.getAddress1(), restaurantDto.getAddress2(), restaurantDto.getAddress3(), restaurantDto.getDetailAddress());
+        addressRepository.save(address);
+        Restaurant restaurant = Restaurant.builder()
+                .restaurantName(restaurantDto.getRestaurantName())
+                .description(restaurantDto.getDescription())
+                .type(RestaurantType.valueOf(restaurantDto.getType()))
+                .phoneNumber(restaurantDto.getPhoneNumber())
+                .address(address)
+                .openingTime(LocalTime.parse(restaurantDto.getOpeningTime()))
+                .closingTime(LocalTime.parse(restaurantDto.getClosingTime()))
+                .build();
 
-        //오픈 시간, 마감시간 LocalTime 으로 뽑아내기
-        LocalTime startTime = extractedLocalTime(restaurantRegisterDto.getStartTime());
-        LocalTime endTime = extractedLocalTime(restaurantRegisterDto.getEndTime());
-
-        //DTO -> Entity
-        Restaurant restaurant = restaurantRegisterDto.toEntity(address, startTime, endTime);
-
-        //string 메뉴 리스트 -> 메뉴리스트 전환 -> 메뉴 저장
-        ObjectMapper objectMapper = new ObjectMapper();
-        if(restaurantRegisterDto.getMenuRegisterDtoList() != null){
-            List<MenuRegisterDto> menuRegisterDtoList = objectMapper.readValue(restaurantRegisterDto.getMenuRegisterDtoList(), new TypeReference<List<MenuRegisterDto>>(){});
-            for (MenuRegisterDto menuRegisterDto : menuRegisterDtoList) {
-                Menu menu = menuRegisterDto.toEntity();
-                menu.setRestaurant(restaurant);
-                menuRepository.save(menu);
-            }
-        }
-
-        //식당 이미지 저장
-        if(multipartFiles != null && !multipartFiles.isEmpty()){
-            RestaurantImage image = s3Uploader.uploadFiles(multipartFiles, dir);
-            image.setRestaurant(restaurant);
-            restaurantImageRepository.save(image);
-        }
-
-        //식당 저장
         return restaurantRepository.save(restaurant);
     }
 
-    public Optional<Address> findAddress(String address1, String address2, String address3) {
-        Optional<Address> findAddress = addressRepository.findByAddress1AndAddress2AndAddress3(
-                address1, address2, address3
-        );
-        return findAddress;
+
+    // Cập nhật thông tin nhà hàng
+    public RestaurantDto updateRestaurant(Long restaurantId, RestaurantDto restaurantDto) {
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(restaurantId);
+        if (restaurantOptional.isPresent()) {
+            Restaurant restaurant = restaurantOptional.get();
+
+            // Cập nhật Address nếu cần thiết
+            Address address = new Address(restaurantDto.getAddress1(), restaurantDto.getAddress2(), restaurantDto.getAddress3(), restaurantDto.getDetailAddress());
+            addressRepository.save(address);
+
+            restaurant.update(
+                    restaurantDto,
+                    address,
+                    LocalTime.parse(restaurantDto.getOpeningTime()),
+                    LocalTime.parse(restaurantDto.getClosingTime())
+            );
+            restaurantRepository.save(restaurant);
+            return restaurantDto;
+        } else {
+            throw new EntityNotFoundException("Restaurant with ID " + restaurantId + " not found.");
+        }
     }
 
-    private static LocalTime extractedLocalTime(String time) {
-        String[] split = time.split(":");
-        LocalTime localTime = LocalTime.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
-        return localTime;
+
+    // Tìm nhà hàng theo ID
+    public Restaurant getRestaurantById(Long restaurantId) {
+        return restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+    }
+
+    // Xóa nhà hàng
+    public void deleteRestaurant(Long restaurantId) {
+        if (restaurantRepository.existsById(restaurantId)) {
+            restaurantRepository.deleteById(restaurantId);
+        } else {
+            throw new IllegalArgumentException("Restaurant not found");
+        }
     }
 
 
-    @Transactional
+    // Tìm tất cả đánh giá của một nhà hàng
+    public List<Review> getReviews(Long restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+        return restaurant.getReviews();
+    }
+
+
+    // Tìm tất cả đặt chỗ của nhà hàng
+    public List<Reservation> getReservations(Long restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+        return restaurant.getReservations();
+    }
+
+    // updateimgae
+    public String updateRestaurantImage(Long restaurantId, MultipartFile file) throws IOException {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Nhà hàng không tồn tại"));
+
+        // Tạo đường dẫn lưu trữ
+        String fileName = restaurantId + "_" + file.getOriginalFilename();
+        Path uploadPath = Paths.get("images/");
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath);
+
+        // Tạo hoặc cập nhật đối tượng RestaurantImage
+        RestaurantImage restaurantImage = restaurant.getRestaurantImage(); // Lấy hình ảnh hiện tại
+        if (restaurantImage == null) {
+            restaurantImage = new RestaurantImage(file.getOriginalFilename(), fileName, filePath.toString());
+            restaurantImage.setRestaurant(restaurant); // Liên kết với nhà hàng
+        } else {
+            restaurantImage.setUploadFileName(file.getOriginalFilename());
+            restaurantImage.setStoredFileName(fileName);
+            restaurantImage.setImagePath(filePath.toString());
+        }
+
+        restaurantImageRepository.save(restaurantImage); // Lưu hình ảnh
+        return fileName;
+    }
+
+    // Phương thức thêm menu cho nhà hàng
+    public Long addMenuToRestaurant(Long restaurantId, MenuDto menuDto) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new NoSuchElementException("ID 레스토랑을 찾을 수 없습니다 : " + restaurantId));
+
+        Menu menu = new Menu();
+        menu.setMenuName(menuDto.getMenuName());
+        menu.setPrice(menuDto.getPrice());
+        menu.setRestaurant(restaurant); // Thiết lập nhà hàng cho menu
+
+        Menu savedMenu = menuRepository.save(menu); // Lưu menu
+        return savedMenu.getMenuId(); // Trả về ID của menu đã lưu
+    }
+
+
+    // Phương thức tìm một nhà hàng theo ID
     public Restaurant findOne(Long id) {
-        Optional<Restaurant> findRestaurant = restaurantRepository.findById(id);
-        Restaurant restaurant = findRestaurant.orElseThrow(
-                () -> new NotFoundDataException("Invalid access: No restaurant found with id : " + id));
-        return findRestaurant.get();
+        // Tìm nhà hàng theo ID, nếu không tìm thấy sẽ ném ra một ngoại lệ
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Nhà hàng với ID " + id + " không tồn tại."));
     }
 
-    public void update(Long id, RestaurantUpdateDto restaurantUpdateDto, MultipartFile multipartFile) throws IOException {
-        Restaurant findRestaurant = findOne(id);
-        Address address = addressRepository.findByAddress1AndAddress2AndAddress3(restaurantUpdateDto.getAddress1(),
-                        restaurantUpdateDto.getAddress2(), restaurantUpdateDto.getAddress3())
-                .orElseThrow(
-                        () -> new NotFoundDataException("해당하는 Address 를 찾을 수 없습니다.")
-                );
-        LocalTime startTime = extractedLocalTime(restaurantUpdateDto.getStartTime());
-        LocalTime endTime = extractedLocalTime(restaurantUpdateDto.getEndTime());
 
-
-        //식당 이미지 업데이트
-        if(multipartFile != null && !multipartFile.isEmpty()){
-            RestaurantImage image = s3Uploader.uploadFiles(multipartFile, dir);
-            image.setRestaurant(findRestaurant);
-            restaurantImageRepository.save(image);
-        }
-
-        //식당 메뉴 업데이트(string 메뉴 리스트 -> 메뉴 업데이트 리스트 전환 -> 메뉴 저장)
-        ObjectMapper objectMapper = new ObjectMapper();
-        if(restaurantUpdateDto.getMenuUpdateDtoList() != null){
-            List<MenuUpdateDto> menuUpdateList = objectMapper.readValue(restaurantUpdateDto.getMenuUpdateDtoList(),
-                    new TypeReference<List<MenuUpdateDto>>() {});
-
-            //1. 식당의 모든 메뉴 삭제
-            List<Menu> menuList = findRestaurant.getMenuList();
-            for (Menu menu : menuList) {
-                menuRepository.delete(menu);
-            }
-
-            //2. 새로 받은 메뉴 리스트를 식당의 메뉴로 등록
-            for (MenuUpdateDto menuUpdate : menuUpdateList) {
-                if(!menuUpdate.getMenuName().isEmpty()){
-                    //Dto -> Entity
-                    Menu menu = menuUpdate.toEntity();
-                    menu.setRestaurant(findRestaurant);
-
-                    //메뉴 저장
-                    menuRepository.save(menu);
-                }
-            }
-        }
-
-        //식당 업데이트
-        findRestaurant.update(restaurantUpdateDto, address, startTime, endTime);
-    }
-
-    public void delete(Long id) {
-        Restaurant findRestaurant= findOne(id);
-        RestaurantImage restaurantImage = findRestaurant.getRestaurantImage();
-        if(restaurantImage != null)
-            s3Uploader.deleteS3(restaurantImage.getStoredFileName());
-
-        restaurantRepository.deleteById(id);
-    }
-
-    public Page<Restaurant> search(AddressSearchDto addressSearchDto, Pageable pageable) {
-        String address1 = addressSearchDto.getAddress1();
-        String address2 = addressSearchDto.getAddress2();
-        String address3 = addressSearchDto.getAddress3();
-
-        //주소 필터링
-        List<Address> addressList = filteredAddress(address1, address2, address3);
-
-        //주소에 해당하는 식당 리스트 뽑아오기
-        Page<Restaurant> restaurantList = null;
-        if(addressList.size() == 0){
-            restaurantList = restaurantRepository.findAll(pageable);
-        }else{
-            restaurantList = restaurantRepository.findByAddressIn(addressList, pageable);
-        }
-
-        return restaurantList;
-    }
-
-    private List<Address> filteredAddress(String address1, String address2, String address3) {
-        List<Address> addressList = new ArrayList<>();
-        if (address3 != null && !address3.isEmpty()) {
-            addressList = addressRepository.findAddress3(address1, address2, address3);
-        }
-        else if (address2 != null && !address2.isEmpty()) {
-            addressList = addressRepository.findAddress2(address1, address2);
-        }
-        else if(address1 != null && !address1.isEmpty()) {
-            addressList = addressRepository.findAddress1(address1);
-        }
-
-        return addressList;
-    }
-
-    public List<String> findAddress1() {
-        return addressRepository.address1List();
-    }
-
-    public void deleteImage(Long id) {
-        Restaurant findRestaurant = findOne(id);
-        RestaurantImage restaurantImage = findRestaurant.getRestaurantImage();
-        restaurantImageRepository.delete(restaurantImage);
-    }
-
-    public RsData<List<Review>> getReviews(Long id, int sortCode){
-
-        //로그인 했는지 확인
-        if (id != null) {
-            List<Review> reviews = findByRestaurantId(id);
-
-            Stream<Review> stream = reviews.stream();
-
-            switch (sortCode) {
-                case 2:
-                    stream = stream.sorted(Comparator.comparing(Review::getId));
-                    break;
-                case 3:
-                    stream = stream.sorted(Comparator.comparing(Review::getRating).reversed());
-                    break;
-                case 4:
-                    stream = stream.sorted(Comparator.comparing(Review::getRating));
-                    break;
-                default:
-                    stream = stream.sorted(Comparator.comparing(Review::getId).reversed());
-                    break;
-
-            }
-            List<Review> newData = stream.collect(Collectors.toList());
-
-            return RsData.of("S-1", "내가 작성한 리뷰들이 정렬되어 출력됩니다.", newData);
-        }
-
-        return RsData.of("F-1", "먼저 로그인부터 진행해주세요.");
-    }
-
-    private List<Review> findByRestaurantId(Long id) {
-        return reviewRepository.findByRestaurantRestaurantId(id);
-    }
 }
+

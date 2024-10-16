@@ -44,7 +44,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (userEntity == null) {
             userEntity = User.builder()
                     .username(username)
-                    .userImgUrl(userImgUrl)
+                    .profileImg(userImgUrl)
                     .email(email)
                     .role(Role.valueOf(role))
                     .provider(provider)

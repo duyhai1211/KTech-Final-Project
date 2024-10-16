@@ -2,6 +2,7 @@ package com.example.foodle_project.user.model.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Data;
@@ -19,12 +20,13 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     // 일반 로그인
     public CustomUserDetails (User user) {
         this.user = user;
+        this.attributes = new HashMap<>();
     }
 
-    // oauth2 로그인
+    // OAuth2 로그인
     public CustomUserDetails(User user, Map<String, Object> attributes) {
         this.user = user;
-        this.attributes = attributes;
+        this.attributes = attributes != null ? attributes : new HashMap<>();
     }
 
 
@@ -38,7 +40,7 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override

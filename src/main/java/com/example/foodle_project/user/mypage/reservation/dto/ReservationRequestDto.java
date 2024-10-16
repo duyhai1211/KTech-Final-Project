@@ -2,11 +2,17 @@ package com.example.foodle_project.user.mypage.reservation.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Getter
+@Setter
+@Data
 public class ReservationRequestDto {
 
     @NotBlank
@@ -21,7 +27,7 @@ public class ReservationRequestDto {
     @NotNull
     private int partySize;
     @NotNull
-    private Long userId;
+    private Long memberId;
     @NotNull
     private Long restaurantId;
     @NotBlank
@@ -46,7 +52,7 @@ public class ReservationRequestDto {
     }
 
     public Long getUserId() {
-        return userId;
+        return memberId;
     }
 
     public Long getRestaurantId() {
@@ -84,8 +90,8 @@ public class ReservationRequestDto {
         this.partySize = partySize;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
 
     public void setRestaurantId(Long restaurantId) {
