@@ -68,8 +68,8 @@ const LogginView = () => {
     return (
         <Container className=' align-self-center'>
             <Row>
-                <Col md={5} lg={6}>
-                    <Image src={Banner[3].img} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} rounded />
+                <Col md={7} lg={6}>
+                    <Image src={Banner[2].img} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} rounded />
                 </Col>
                 <Col md={5} lg={6}>
                     <Form onSubmit={handleLoggin} noValidate validated={validated}>
