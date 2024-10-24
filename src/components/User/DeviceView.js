@@ -4,10 +4,10 @@ import { Image, NavLink } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import './DeviceView.scss'
-import Devices from '../../assets/Devices/Devices';
+import Devices from '../../assets/Food/Banner';
 import { RxVideo } from "react-icons/rx";
 import { CiImageOn } from "react-icons/ci";
-import noimg from '../../assets/Devices/noimg.png'
+import noimg from '../../assets/Food/noimg.jpg'
 
 const DeviceView = () => {
   const devices = Devices

@@ -7,11 +7,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(
+  background-color: linear-gradient(
     to right bottom,
-    rgb(156, 177, 231),
+    rgb(221, 149, 72),
     // rgb(158, 222, 214)
-    rgb(98, 185, 239)
+    rgb(233, 216, 181)
   );
   background-attachment: fixed; /*edit*/
 }
