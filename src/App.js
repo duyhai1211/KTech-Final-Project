@@ -8,6 +8,8 @@ import Test from './components/services/test';
 import VolunteerHome from './components/Volunteer/VolunteerHomePage';
 import MedicalHome from './components/Medical/MedicalHome';
 import HomePage from './components/HomePage/HomePage';
+import LogginView from './components/Loggin/LogginView';
+import SignUpPage from './components/Loggin/SignUpView';
 
 function App() {
   return (
@@ -18,8 +20,8 @@ function App() {
       <div className="app-container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/UserHome" element={<UserHome />} />
-          <Route path="/Volunteer" element={<Volunteer />} />
+          <Route path="/SignInPage" element={<LogginView />} />
+          <Route path="/SignUpPage" element={<SignUpPage />} />
           <Route path="/DeviceView" element={<DeviceView />} />
           <Route path="/Test" element={<Test />} />
           <Route path="/VolunteerHome" element={<VolunteerHome />} />
