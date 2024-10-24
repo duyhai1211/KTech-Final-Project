@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import './ImageBoard.scss'
 const ImageBoard = () => {
     const [activeIndex, setActiveIndex] = useState(0);
- 
+
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -20,11 +20,8 @@ const ImageBoard = () => {
 
     return (
         <Container className="image-board-container">
-
-            <Image src={Banner[activeIndex].img} rounded fluid />
-
-
-        </Container>
+            <Image src={Banner[activeIndex].img} rounded className="banner-img img-fluid" />
+      </Container>
     )
 }
 export default ImageBoard

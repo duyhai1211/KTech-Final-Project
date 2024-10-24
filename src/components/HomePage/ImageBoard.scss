@@ -2,5 +2,17 @@
   position: relative;
   width: 100%;
   max-width: 600px; /* Adjust as needed */
-  height: 400px; /* Adjust as needed */
+  max-height: 500px; /* Adjust as needed */
+}
+
+/* Correct image styling */
+.banner-img {
+  max-height: 500px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto; /* Ensures the image keeps its aspect ratio */
 }
