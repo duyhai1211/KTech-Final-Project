@@ -32,13 +32,13 @@ const Reservation = () => {
                 </Nav>
 
                 <Container>
-                    <Row><Calendar/></Row>
+                    <Row><Calendar /></Row>
 
                     {
                         resultList.map(item =>
                             <Card className='mb-3'>
                                 <Card.Body>
-                                    <Card.Title>{item.date}</Card.Title>
+                                    <Card.Title>{item.time}</Card.Title>
                                     <Card.Text>
                                         <p>Customer: {item?.cusID}</p>
                                         <p>Attendances Number: {item?.attendanceNum}</p>

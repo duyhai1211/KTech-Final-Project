@@ -13,6 +13,7 @@ import "./Calendar.scss"
 import Note from './Note';
 import { IoSearch } from "react-icons/io5";
 import { GrPowerReset } from "react-icons/gr";
+
 dayjs.locale('ko');
 
 const Calendar = () => {
@@ -25,7 +26,7 @@ const Calendar = () => {
         { noteDate: "2024-10-02", noteContent: "2nd note" },
     ]);
     const [view, setView] = useState('day');
-
+    const [chooseDate, setChooseDate] = useState('')
     const handleAddEvent = () => {
         setShowModal(true);
     };
@@ -52,7 +53,18 @@ const Calendar = () => {
             alert("내용을 입력해주세요.");
         }
     };
+    const handleDateChange = (newDate) => {
+        if (newDate) {
+            const formattedDate = dayjs(newDate).format('YYYY-MM-DD');
+            setChooseDate(formattedDate);
+        } else {
+            setChooseDate("");
+        }
+    };
 
+    const handleReset = () => {
+        setChooseDate("");
+    };
     return (
 
         <LocalizationProvider
@@ -64,16 +76,28 @@ const Calendar = () => {
                     <DateTimePicker
                         label='Choose Date Time'
                         className='mb-3'
+                        value={chooseDate ? dayjs(chooseDate) : null}
+                        onChange={handleDateChange}
+                        renderInput={(params) => <input {...params} />}
                     />
                     <Button className="btn-link p-0 ms-2" style={{ background: 'none', border: 'none' }}>
                         <IoSearch size={30} />
                     </Button>
-                    <Button className="btn-link p-0 ms-2" style={{ background: 'none', border: 'none' }}>
+                    <Button className="btn-link p-0 ms-2" style={{ background: 'none', border: 'none' }}
+                        onClick={handleReset}
+                    >
                         <GrPowerReset size={30} />
                     </Button>
                 </Col>
-
             </Row>
+            {
+                chooseDate !== "" &&
+                <Row>
+                    <p >Reservation on date: {chooseDate} </p>
+                </Row>
+            }
+
+
 
             <div>
                 {
