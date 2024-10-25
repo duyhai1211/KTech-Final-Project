@@ -11,7 +11,8 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Paper } from '@mui/material';
 import CustomerSignUp from './CustomerSignUp';
-
+import Nav from 'react-bootstrap/Nav';
+import RestaurantSignUp from './RestaurantSignUp';
 const SignUpPage = () => {
 
     const navigate = useNavigate();
@@ -69,8 +70,6 @@ const SignUpPage = () => {
         console.log(name, " ", value)
     };
 
-
-
     const handleSignUpSubmit = () => {
 
     }
@@ -83,28 +82,47 @@ const SignUpPage = () => {
             <Container className=' align-self-center'>
                 <Row >
                     <Col>
+                        <Row>
+                            <Image src={Banner[3].img} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} rounded />
+                        </Row>
 
-                    <Row>
-                       
-                    </Row>
-                    <Row>
-                       
-                    </Row>
-                    <Row>
-                    <Image src={Banner[3].img} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} rounded />
-                    </Row>
-                        
 
                     </Col>
                     <Col>
-                    <CustomerSignUp
-                    handleChange={handleChange}
-                    handleSignUpSubmit={handleSignUpSubmit}
-                    handleCheckId={handleCheckId}
-                    handleShowPassword={handleShowPassword}
-                    showPw={showPw}
-                    validated={validated}
-                    />
+                        <Nav fill variant="tabs" defaultActiveKey="/home">
+                            <Nav.Item>
+                                <Nav.Link eventKey="link-1"
+                                    onClick={() => setRole("customer")}
+                                >일반 회원</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="link-2"
+                                    onClick={() => setRole("restaurant")}
+                                >식당 회원</Nav.Link>
+                            </Nav.Item>
+
+                        </Nav>
+
+                        {role === "customer" &&
+                            <CustomerSignUp
+                                handleChange={handleChange}
+                                handleSignUpSubmit={handleSignUpSubmit}
+                                handleCheckId={handleCheckId}
+                                handleShowPassword={handleShowPassword}
+                                showPw={showPw}
+                                validated={validated}
+                            />
+                        }
+                        {role === "restaurant" &&
+                            <RestaurantSignUp
+                                handleChange={handleChange}
+                                handleSignUpSubmit={handleSignUpSubmit}
+                                handleCheckId={handleCheckId}
+                                handleShowPassword={handleShowPassword}
+                                showPw={showPw}
+                                validated={validated}
+                            />}
+
                     </Col>
                 </Row>
 
