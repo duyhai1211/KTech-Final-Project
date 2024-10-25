@@ -1,6 +1,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers';
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import dayjs from 'dayjs';
@@ -11,10 +11,12 @@ import Button from 'react-bootstrap/Button';
 import { TextField } from "@mui/material"
 import "./Calendar.scss"
 import Note from './Note';
+import { IoSearch } from "react-icons/io5";
+import { GrPowerReset } from "react-icons/gr";
 dayjs.locale('ko');
 
 const Calendar = () => {
-
+    const [role, setRole] = useState('')
     const [newValue, setValue] = useState(dayjs())
     const [showModal, setShowModal] = useState(false);
     const [note, setNote] = useState("")
@@ -57,37 +59,25 @@ const Calendar = () => {
             dateAdapter={AdapterDayjs}
             adapterLocale="ko"
         >
-            <div className="container">
-                <Row className='g-4'>
-                    <Col className='calendar-container border bg-body '>
-                        <StaticDatePicker
-                            orientation='portrait'
-                            openTo={view}
-                            value={newValue}
-                            onViewChange={(newView) => setView(newView)}
-                            onChange={(newValue) => setValue(newValue)}
-                            renderInput={(params) => <input {...params} />}
-                            locale={ko}
-                            views={['year', 'month', 'day']}
-                            format='MM월 DD일'
-                            localeText={{
-                                toolbarTitle: '날짜 선택',
-                                cancelButtonLabel: '취소',
-                                todayButtonLabel: '오늘',
-                                okButtonLabel: '추가',
-                            }}
-                            slotProps={{
-                                actionBar: {
-                                    actions: ['today', 'cancel', 'accept'],
-                                    onAccept: handleAddEvent,
-                                    onCancel: handleCancel,
+            <Row >
+                <Col className="d-flex align-items-baseline justify-content-center">
+                    <DateTimePicker
+                        label='Choose Date Time'
+                        className='mb-3'
+                    />
+                    <Button className="btn-link p-0 ms-2" style={{ background: 'none', border: 'none' }}>
+                        <IoSearch size={30} />
+                    </Button>
+                    <Button className="btn-link p-0 ms-2" style={{ background: 'none', border: 'none' }}>
+                        <GrPowerReset size={30} />
+                    </Button>
+                </Col>
 
-                                },
-                            }}
-                            disablePast
-                        />
-                    </Col>
+            </Row>
 
+            <div>
+                {
+                    role === 'customer' &&
                     <Col className='note-container '>
                         <Note
                             noteList={noteList}
@@ -97,7 +87,9 @@ const Calendar = () => {
                             setNote={setNote}
                         />
                     </Col>
-                </Row>
+                }
+
+
 
                 <Modal show={showModal} onHide={handleClose} style={{ minHeight: '300px' }}>
                     <Modal.Header closeButton>
