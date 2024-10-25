@@ -10,6 +10,7 @@ import MedicalHome from './components/Medical/MedicalHome';
 import HomePage from './components/HomePage/HomePage';
 import LogginView from './components/Loggin/LogginView';
 import SignUpPage from './components/Loggin/SignUpView';
+import ResAdminPage from './components/Restaurant/ResAdminPage';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/SignInPage" element={<LogginView />} />
           <Route path="/SignUpPage" element={<SignUpPage />} />
-          <Route path="/DeviceView" element={<DeviceView />} />
+          <Route path="/RestaurantAdminPage" element={<ResAdminPage />} />
           <Route path="/Test" element={<Test />} />
           <Route path="/VolunteerHome" element={<VolunteerHome />} />
           <Route path="/MedicalHome" element={<MedicalHome />} />
