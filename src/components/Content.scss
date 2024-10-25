@@ -1,0 +1,32 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin border-radius {
+  border: 1px solid rgb(29, 89, 228);
+  border-radius: 5px;
+}
+
+.r-content {
+  display: flex;
+  justify-content: space-around;
+  .c-content {
+    @include flex-center();
+    @include border-radius();
+    width: calc(25% - 20px);
+    min-width: 100px;
+    margin: 10px;
+    height: 100px;
+    .nav-link {
+      position: relative;
+      padding-bottom: 2px;
+      &:hover {
+        font-size: larger;
+        text-decoration: none; // Disable default underline
+        border-bottom: 1px solid; // Add custom underline
+        border-color: rgb(247, 247, 248);
+      }
+    }
+  }
+}

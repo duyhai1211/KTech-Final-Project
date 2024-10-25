@@ -1,0 +1,23 @@
+//@import "~react-pro-sidebar/dist/scss/styles.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: linear-gradient(
+    to right bottom,
+    rgb(221, 149, 72),
+    // rgb(158, 222, 214)
+    rgb(233, 216, 181)
+  );
+  background-attachment: fixed; /*edit*/
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+//rgb(112, 189, 207)

@@ -1,0 +1,78 @@
+.container {
+  .calendar-container.border.col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-color: #e0f7fa;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-right: none;
+
+    .MuiPickersToolbar-root {
+      border-radius: 10px;
+      margin-top: 20px;
+      .MuiTypography-overline {
+        font-size: 18px;
+      }
+
+      &.MuiDatePickerToolbar-root.MuiPickersLayout-toolbar {
+        background-color: #e0f7fa;
+      }
+    }
+
+    .MuiPickersLayout-contentWrapper {
+      .MuiDayCalendar-header .MuiDayCalendar-weekDayLabel {
+        font-size: medium;
+      }
+      .MuiPickersCalendarHeader-root {
+        background-color: #78cdd8;
+        border-radius: 10px;
+      }
+
+      .MuiPickersDay-root.Mui-selected {
+        background-color: #147582 !important;
+        color: #ffffff !important;
+      }
+
+      .MuiPickersDay-root.MuiPickersDay-today {
+        border: 1px solid #147582; /* Add border to indicate today's date */
+        color: #147582; /* Change text color for today's date */
+      }
+
+      .MuiPickersDay-root:hover {
+        background-color: #d1e0e0; /* Lighter hover color */
+      }
+    }
+  }
+
+  .MuiDialogActions-root.MuiDialogActions-spacing.MuiPickersLayout-actionBar {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: enter;
+    width: "100%";
+  }
+
+  button.MuiButtonBase-root.MuiButton-root.MuiButton-text {
+    font-size: large;
+    color: #147582;
+    font-weight: 300;
+  }
+
+  .note-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .MuiFormControl-Root .MuiTextField-root {
+    position: relative;
+    display: flex;
+  }
+}

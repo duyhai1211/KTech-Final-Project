@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "short_name": "React App",
   "name": "Create React App Sample",
+=======
+  "short_name": "IoT 6",
+  "name": "IoT 6 1st",
+>>>>>>> linh
   "icons": [
     {
       "src": "favicon.ico",

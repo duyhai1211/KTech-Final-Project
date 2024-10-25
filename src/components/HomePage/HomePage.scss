@@ -1,0 +1,7 @@
+/* Add these styles to your CSS file */
+div {
+  display: block;
+  clear: both; /* Ensures that elements below aren't affected by floating elements */
+  width: 100%;
+  margin-bottom: 20px;
+}

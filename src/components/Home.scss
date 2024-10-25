@@ -1,0 +1,28 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin border-radius {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+@mixin background-color {
+  background-color: rgba(248, 245, 245, 0.3);
+}
+
+.homecontent-container {
+  .home-container {
+    @include background-color();
+    margin-top: 40px;
+    .content-container {
+      margin: 0;
+      height: 450px;
+    }
+    .loggin-container {
+      @include border-radius;
+      width: 400px;
+      height: 450px;
+    }
+  }
+}

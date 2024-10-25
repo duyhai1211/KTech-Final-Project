@@ -1,0 +1,53 @@
+.container .note-container {
+  height: 539.2px; /* Set the height */
+  overflow-y: auto; /* Allow horizontal scrolling */
+  overflow-x: hidden;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #e0f7fa;
+  border-left: none;
+  padding: 10px;
+
+  ::-webkit-scrollbar {
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(131, 178, 179, 0.2);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .note-card {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    p {
+      display: flex;
+      margin-top: 0;
+      margin-bottom: 0.5rem !important;
+    }
+    .col {
+      padding-right: 0;
+
+      button.btn.btn-success {
+        padding: 0 5px;
+        padding-bottom: 2px;
+        margin-right: 5px;
+      }
+      button.btn.btn-danger {
+        padding: 0 5px;
+        padding-bottom: 2px;
+      }
+    }
+  }
+  .card-body {
+    padding: 5px;
+
+    .card-item .card {
+      padding: 5px;
+    }
+  }
+}

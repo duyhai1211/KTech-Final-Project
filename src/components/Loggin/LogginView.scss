@@ -1,0 +1,25 @@
+
+    .signUp-container{
+        margin-top: 10px;
+        .nav-link{
+            font-size: smaller;
+            color: rgb(8, 87, 223);
+            font-weight: bold;
+            &:hover{
+                color: blue;
+            }
+        }
+    }
+
+    .findPw-container{
+        margin-top: 10px;
+        .nav-link{
+            font-size: smaller;
+            color: rgb(8, 87, 223);
+            font-weight: bold;
+            &:hover{
+                color: blue;
+            }
+        }
+    }
+
