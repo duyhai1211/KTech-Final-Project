@@ -27,6 +27,9 @@ public class ReservationDto {
     public static ReservationDto fromEntity(Reservation entity) {
         return ReservationDto.builder()
                 .reservationId(entity.getId())
+                .userId(entity.getUser().getId())
+                .restaurantId(entity.getRestaurant().getId())
+                .restaurantName(entity.getRestaurant().getName())
                 .name(entity.getName())
                 .phone(entity.getPhone())
                 .date(entity.getDate())

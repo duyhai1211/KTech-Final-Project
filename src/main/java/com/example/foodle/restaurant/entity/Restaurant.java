@@ -2,7 +2,6 @@ package com.example.foodle.restaurant.entity;
 
 import com.example.foodle.BaseEntity;
 import com.example.foodle.auth.entity.UserEntity;
-import com.example.foodle.restaurant.dto.OpenRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,7 +58,7 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private List<OpenRequest> openRequest = new ArrayList<>();
     public enum Category {
-        JAP,WEST,CHINA,PIZZA,CHICKEN
+        JAP, WESTERN,CHINA,PIZZA,CHICKEN
     }
 
     public enum Status {

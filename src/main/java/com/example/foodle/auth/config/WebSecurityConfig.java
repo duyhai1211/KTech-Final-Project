@@ -27,15 +27,19 @@ public class WebSecurityConfig {
                     auth.requestMatchers(
                             "/users/signin",
                             "/users/signup",
-
-                            "users/signup-owner"
+                            "/users/signup-owner"
                     )
                     .anonymous();
                     auth.requestMatchers(
                             "/users/update",
                             "/users/profile",
                             "/users/get-user-info",
-                            "reservation/user/**"
+                            "/reservation/create",
+                            "/reservation/user/**",
+                            "/users/review/**"
+
+
+//
                     )
                     .authenticated();
                     auth.requestMatchers(
@@ -46,9 +50,10 @@ public class WebSecurityConfig {
                     auth.requestMatchers(
                             "/restaurant/**",
                             "/reservation/restaurant/**"
+
                     )
                     .hasRole("OWNER");
-                    auth.requestMatchers("/error", "/static/**", "/views/**", "/")
+                    auth.requestMatchers("/error", "/static/**", "/views/**","/review/**", "/")
                             .permitAll();
                     auth.anyRequest()
                             .hasRole("ACTIVE");

@@ -2,7 +2,7 @@ package com.example.foodle.reservation;
 
 import com.example.foodle.auth.AuthenticationFacade;
 import com.example.foodle.auth.entity.UserEntity;
-import com.example.foodle.auth.repo.UserRepo;
+
 import com.example.foodle.reservation.dto.ReservationDto;
 import com.example.foodle.reservation.entity.Reservation;
 import com.example.foodle.reservation.repository.ReservationRepo;
@@ -13,15 +13,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
     private final AuthenticationFacade authFacade;
     private final ReservationRepo reservationRepo;
-    private final UserRepo userRepo;
+
     private final RestaurantRepository restaurantRepo;
 
 
@@ -36,15 +41,21 @@ public class ReservationService {
         if (reservationDto.getPartySize() > restaurant.getCapacity()) {
             throw new RuntimeException("Party size exceeds the capacity of the restaurant");
         }
+        log.info("Creating reservation");
         Reservation reservation = new Reservation();
+
         reservation.setUser(user);
+        log.info("Creating reservation 2");
         reservation.setRestaurant(restaurant);
+        reservation.setRestaurantName(restaurant.getName());
+        log.info("Creating reservation 3");
         reservation.setName(reservationDto.getName());
         reservation.setPhone(reservationDto.getPhone());
         reservation.setDate(reservationDto.getDate());
         reservation.setReservationTime(reservationDto.getReservationTime());
         reservation.setPartySize(reservationDto.getPartySize());
-        reservation.setStatus("Pending");
+        reservation.setStatus("PENDING");
+        log.info("Creating reservation 4");
         reservationRepo.save(reservation);
 
         return ReservationDto.fromEntity(reservation);
@@ -57,57 +68,88 @@ public class ReservationService {
         return reservationRepo.findAllByUserId(userId, pageable)
                 .map(ReservationDto::fromEntity);
     }
+    //restaurant reservation
+    public Page<ReservationDto> myReservations(Pageable pageable) {
+        UserEntity owner = authFacade.extractUser();
+        Restaurant restaurant = restaurantRepo.findByOwner(owner)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+        return reservationRepo.findAllByRestaurantId(restaurant.getId(),pageable)
+                .map(ReservationDto::fromEntity);
+    }
     //restaurant reservation confirm
     public ReservationDto confirmReservation(Long reservationId) {
         // Lấy thông tin người dùng hiện tại
         UserEntity currentUser = authFacade.extractUser();
 
-        // Kiểm tra xem người dùng hiện tại có phải là chủ nhà hàng không
-        if (!currentUser.getRoles().equals("ROLE_OWNER")) {
-            throw new RuntimeException("You are not authorized to confirm this reservation");
-        }
-
         // Tìm đơn đặt chỗ theo ID
         Reservation reservation = reservationRepo.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
-
-        // Chỉ nhà hàng quản lý mới được xác nhận đặt chỗ
-        if (!reservation.getRestaurant().getOwner().equals(currentUser)) {
-            throw new RuntimeException("You are not authorized to confirm this reservation");
+        if (!currentUser.getRoles().contains("ROLE_OWNER") ||
+                !reservation.getRestaurant().getOwner().getId().equals(currentUser.getId())) {
+            throw new RuntimeException("권한이 없습니다"); // Không có quyền
         }
-
         // Xác nhận đơn đặt chỗ
-        reservation.setStatus("Confirmed");
+        reservation.setStatus("CONFIRMED");
         reservationRepo.save(reservation);
 
         return ReservationDto.fromEntity(reservation);
     }
 
     //
-    public ReservationDto cancelReservation(Long reservationId, String reason) {
+    public ReservationDto cancelReservation(Long reservationId,String reason) {
         // Lấy thông tin người dùng hiện tại
         UserEntity currentUser = authFacade.extractUser();
 
         // Tìm đơn đặt chỗ theo ID
         Reservation reservation = reservationRepo.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
-
+        if (!currentUser.getRoles().contains("ROLE_OWNER") ||
+                !reservation.getRestaurant().getOwner().getId().equals(currentUser.getId())) {
+            throw new RuntimeException("권한이 없습니다"); // Không có quyền
+        }
+        if( !reservation.getStatus().equals("CONFIRMED")){
+            throw new RuntimeException("예약 취소를 할 수 없다");
+        }
         // Cập nhật trạng thái đơn đặt chỗ thành 'Cancelled' và lý do hủy
-        reservation.setStatus("Cancelled");
+        reservation.setStatus("CANCELLED");
         reservation.setReason(reason);
         reservationRepo.save(reservation);
         return ReservationDto.fromEntity(reservation);
     }
     //complete reservation
     public ReservationDto completeReservation(Long reservationId) {
-        UserEntity currentUser = authFacade.extractUser();
+        //UserEntity currentUser = authFacade.extractUser();
         Reservation reservation = reservationRepo.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
-        reservation.setStatus("Complete");
+
+        if(!reservation.getStatus().equals("CONFIRMED")){
+            throw new RuntimeException("예약 완료를 할 수 없다");
+        }
+        reservation.setStatus("COMPLETED");
         reservationRepo.save(reservation);
         return ReservationDto.fromEntity(reservation);
     }
 
+    @Scheduled(fixedRate = 60000) // 1분에 한 번씩 실행
+    public void autoUpdateReservations() {
+        List<Reservation> reservations = reservationRepo.findAll();
 
+        for (Reservation reservation : reservations) {
+            LocalDateTime reservationDateTime = LocalDateTime.of(reservation.getDate(), reservation.getReservationTime());
+            LocalDateTime now = LocalDateTime.now();
+
+            // 예약 시간 한 시간 전에 "확정"으로 상태 변경
+            if (now.isAfter(reservationDateTime.minusHours(1)) && reservation.getStatus().equals("PENDING")) {
+                reservation.setStatus("CONFIRMED");
+                reservationRepo.save(reservation);
+            }
+
+            // 예약 시간이 지나면 "방문 완료"로 상태 변경
+            if (now.isAfter(reservationDateTime) && reservation.getStatus().equals("CONFIRMED")) {
+                reservation.setStatus("COMPLETED");
+                reservationRepo.save(reservation);
+            }
+        }
+    }
 
 }
