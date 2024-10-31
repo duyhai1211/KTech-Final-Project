@@ -27,7 +27,8 @@ public class WebSecurityConfig {
                     auth.requestMatchers(
                             "/users/signin",
                             "/users/signup",
-                            "/users/signup-owner"
+                            "/users/signup-owner",
+                            "/search"
                     )
                     .anonymous();
                     auth.requestMatchers(

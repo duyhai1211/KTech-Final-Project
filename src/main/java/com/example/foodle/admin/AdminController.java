@@ -38,6 +38,11 @@ public class AdminController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PostMapping("/{requestId}/reject")
+    public ResponseEntity<String> rejectOpenRequest(@PathVariable Long requestId, @RequestBody String reason) {
+        adminOpenRequestService.rejectOpenRequest(requestId, reason);
+        return ResponseEntity.ok("yêu cầu bị từ chối");
+    }
 
 
 }

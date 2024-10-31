@@ -54,6 +54,16 @@ public class AdminService {
         restaurant.setStatus(Restaurant.Status.APPROVED);  // Nhà hàng được phê duyệt
         restaurantRepository.save(restaurant);
     }
+    public void rejectOpenRequest(Long requestId, String rejectionReason) {
+        OpenRequest openRequest = resOpenReqRepo.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Yêu cầu không tồn tại"));
+        if (openRequest.getIsApproved() != null) {
+            throw new RuntimeException("Yêu cầu đã được xử lý trước đó.");
+        }
+        openRequest.setIsApproved(false);
+        openRequest.setReason(rejectionReason);
+        resOpenReqRepo.save(openRequest);
+    }
 
 
 }
