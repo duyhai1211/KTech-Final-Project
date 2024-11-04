@@ -12,40 +12,167 @@
 				{
 					"name": "users/signup",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"user5\",\r\n    \"password\":\"12345\",\r\n    \"passwordCheck\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "users/signin",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"user5\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "users/update",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNCIsImlhdCI6MTczMDA4NjczNywiZXhwIjoxNzMwNjkxNTM3fQ.rXwakDmjfgwVNyA6sEHXIEzW-sIK4evPT6DepViPiFL11gVKN_Qhe_YOL5GMbp2l",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nickname\": \"testNickname\",\r\n  \"name\": \"testName\",\r\n  \"age\": 25,\r\n  \"email\": \"test@example.com\",\r\n  \"phone\": \"1234567890\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"update"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "users/profile",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNCIsImlhdCI6MTczMDA5NTQ1NiwiZXhwIjoxNzMwNzAwMjU2fQ.D8lZm9Jc-UX8VU-rBRuduHCJpp-gVD11JlT8mnLrGz_djffV1UXFOFFLkpyZieKP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/lucif/OneDrive/Hình ảnh/Ảnh chụp màn hình/Screenshot 2024-04-17 094446.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"profile"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "users/get-user-info",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTA4ODI4NCwiZXhwIjoxNzI5NjkzMDg0fQ.wDHT1ZjmoZAjIXg0Qdfj6NFif9q_UFYL6NgPjhDhDVm97ILBGHWzDrGO5mADsrTh",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/get-user-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"get-user-info"
+							]
+						}
 					},
 					"response": []
 				}
@@ -57,24 +184,106 @@
 				{
 					"name": "admin/signin",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"securePassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "admin/all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMDExMTQ0OSwiZXhwIjoxNzMwNzE2MjQ5fQ.IXsvqRY3zv8HEr9V8InIy10AI2pLNtAOApBMs6vGwgqIIZarQhvA0wPrzvVWy58A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"all"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "admin/approve",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTgzMzM4OSwiZXhwIjoxNzMwNDM4MTg5fQ.GYsccbdwonXM9Ohw2xdA6TeL5c3AblwHwvCsww6xmix7IzYznUBEoVodgKTrnRSH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/1/approve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"1",
+								"approve"
+							]
+						}
 					},
 					"response": []
 				}
@@ -89,40 +298,184 @@
 						{
 							"name": "menu/create",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjEiLCJpYXQiOjE3Mjk2MTEzNDEsImV4cCI6MTczMDIxNjE0MX0.gFW1bFBftZekLlmlOqsRT3akEStUUCFFIYgD8GVp3v_DqXfWarWh_1-2h3MbiDzp",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Delicious Dish 2\", \r\n  \"description\": \"A culinary masterpiece.\",\r\n  \"price\": 15000\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/restaurant/menu/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"restaurant",
+										"menu",
+										"create"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "menu/updateImg",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjEiLCJpYXQiOjE3Mjk2MTEzNDEsImV4cCI6MTczMDIxNjE0MX0.gFW1bFBftZekLlmlOqsRT3akEStUUCFFIYgD8GVp3v_DqXfWarWh_1-2h3MbiDzp",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/lucif/OneDrive/Hình ảnh/sl.PNG"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/restaurant/menu/2/updateImg",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"restaurant",
+										"menu",
+										"2",
+										"updateImg"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "menu/update",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjEiLCJpYXQiOjE3Mjk2MTI1NjksImV4cCI6MTczMDIxNzM2OX0.co8HJnmBgPw2gBAvHQMRkqjckkf_VZGkF-lCnNqb3zVKCG5T0my6WIc_poLu3Bnc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Delicious Dish 2\", \r\n  \"description\": \"A culinary masterpiece.\",\r\n  \"price\": 11111\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/restaurant/menu/2/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"restaurant",
+										"menu",
+										"2",
+										"update"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "menu/all",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjEiLCJpYXQiOjE3Mjk2MTI1NjksImV4cCI6MTczMDIxNzM2OX0.co8HJnmBgPw2gBAvHQMRkqjckkf_VZGkF-lCnNqb3zVKCG5T0my6WIc_poLu3Bnc",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/restaurant/menu",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"restaurant",
+										"menu"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "menu/readOne",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjgiLCJpYXQiOjE3Mjk0OTAzMTMsImV4cCI6MTczMDA5NTExM30.tv2lsN2CIW8QlA2UHbe4WnRr3gxcneak3K-Ouc8n9EuSZvHSJAwI7d4RUeblulXw",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/restaurant/menu/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"restaurant",
+										"menu",
+										"1"
+									]
+								}
 							},
 							"response": []
 						}
@@ -134,64 +487,280 @@
 						{
 							"name": "reservation/create",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMzUwNSwiZXhwIjoxNzMwODE4MzA1fQ.M-bWYddod_soPE9V1K97120_uLKrlcJoZcmKnRa2Jg2UOsSijqoY5f_naO9TDW7R",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"hee\",\r\n  \"phone\": \"123-456-7890\",\r\n  \"date\": \"2024-11-01\",\r\n  \"reservationTime\": \"18:30\",\r\n  \"partySize\": 4\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/reservation/create?restaurantId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"create"
+									],
+									"query": [
+										{
+											"key": "restaurantId",
+											"value": "1"
+										}
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/user-all",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMzk2MiwiZXhwIjoxNzMwODE4NzYyfQ.ngDCxZwFYcf6tCK59oxbn3WihAqgCMc3cgSrXKCGszle-xNvipFan6XCK94QfD-9",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/reservation/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"user"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/user-cancel",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNCIsImlhdCI6MTcyOTgzNzIzOSwiZXhwIjoxNzMwNDQyMDM5fQ.rmbe37yOysJREHfmgX7dKBYYW2ED1RyEX1x1ucvtcjGmOvCkPv0-lAn_TKGBc5yD",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\": \"no longer needed\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/reservation/user/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"user",
+										"1",
+										"cancel"
+									],
+									"query": [
+										{
+											"key": "restaurantId",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/user-cancel Copy",
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/reservation/user/1/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"user",
+										"1",
+										"complete"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/restaurant",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTM5MTQsImV4cCI6MTczMDgxODcxNH0.k_A3bboJBtaJmnguY9Bah_9dj2GBFTmh2V62imyV5oWPTwpMvSGmYLm6Ui7Byhbs",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/reservation/restaurant",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"restaurant"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/restaurant-cancel",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTM5MTQsImV4cCI6MTczMDgxODcxNH0.k_A3bboJBtaJmnguY9Bah_9dj2GBFTmh2V62imyV5oWPTwpMvSGmYLm6Ui7Byhbs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\": \"out of stock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/reservation/restaurant/6/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"restaurant",
+										"6",
+										"cancel"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/restaurant-confirm",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTM5MTQsImV4cCI6MTczMDgxODcxNH0.k_A3bboJBtaJmnguY9Bah_9dj2GBFTmh2V62imyV5oWPTwpMvSGmYLm6Ui7Byhbs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/reservation/restaurant/6/confirm",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"restaurant",
+										"6",
+										"confirm"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "reservation/restaurant-complete",
 							"request": {
-								"method": "GET",
-								"header": []
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTM1MTgsImV4cCI6MTczMDgxODMxOH0.azir2BLVhJA3r-bKRObJzRCMDCy862SWH0bDYK_Wb7iEmZcUL3oE2zr3dfagYT-r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/reservation/restaurant/5/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reservation",
+										"restaurant",
+										"5",
+										"complete"
+									]
+								}
 							},
 							"response": []
 						}
@@ -200,48 +769,206 @@
 				{
 					"name": "users/signup-owner",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"owner4\",\r\n    \"password\":\"12345\",\r\n    \"passwordCheck\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/signup-owner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signup-owner"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "restaurant-signin",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"owner4\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "restaurant/request-open",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3Mjk4MzMzNDUsImV4cCI6MTczMDQzODE0NX0.2LXotKd30MoieF80dRpROwHp5DdRY5eW1bzd2cl6x2qRoqMIV3j-Yoj6z8ohYX-z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My New Restaurant\",\r\n    \"address\": \"123 sangto\",\r\n    \"capacity\": 100,\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"description\": \"A fine dining experience\",\r\n    \"category\": \"JAP\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurant/request-open",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurant",
+								"request-open"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "restaurant/update",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3Mjk4MzMzNDUsImV4cCI6MTczMDQzODE0NX0.2LXotKd30MoieF80dRpROwHp5DdRY5eW1bzd2cl6x2qRoqMIV3j-Yoj6z8ohYX-z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"CHANGE NAME\",\r\n    \"address\": \"123 sangto\",\r\n    \"capacity\": 100,\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"description\": \"A fine dining experience\",\r\n    \"registrationNum\": \"REG12345\",\r\n    \"openTime\": \"10:00:00\", \r\n    \"closeTime\": \"22:00:00\",\r\n    \"category\": \"JAP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurant/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurant",
+								"update"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "/upload-profile-image",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3Mjk4MzMzNDUsImV4cCI6MTczMDQzODE0NX0.2LXotKd30MoieF80dRpROwHp5DdRY5eW1bzd2cl6x2qRoqMIV3j-Yoj6z8ohYX-z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/lucif/OneDrive/Hình ảnh/FALL.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurant/upload-profile-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurant",
+								"upload-profile-image"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "/restaurant/all",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTIzMzMsImV4cCI6MTczMDgxNzEzM30.s1K1mGHJ-OQ8U1faGqF9zqYWtx7ATtcGEECrIcUj5qselDiRE7CfdCsXENJtvSsA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurant/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurant",
+								"all"
+							]
+						}
 					},
 					"response": []
 				}
@@ -253,40 +980,172 @@
 				{
 					"name": "create review",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMjk4OCwiZXhwIjoxNzMwODE3Nzg4fQ.Astec5vWoRd0DtoCmSGd46bVfxNv_5daLFYxngPdaEwVZZbfPcoASh2z8pnPArvd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Amazing service and food!\",\r\n    \"rating\": 5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/review/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"review",
+								"4"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "update review",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMjk4OCwiZXhwIjoxNzMwODE3Nzg4fQ.Astec5vWoRd0DtoCmSGd46bVfxNv_5daLFYxngPdaEwVZZbfPcoASh2z8pnPArvd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Amazing service and food!\",\r\n    \"rating\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/review/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"review",
+								"3"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "delete review",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMjk4OCwiZXhwIjoxNzMwODE3Nzg4fQ.Astec5vWoRd0DtoCmSGd46bVfxNv_5daLFYxngPdaEwVZZbfPcoASh2z8pnPArvd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/review/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"review",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "review/restaurant/{resId}",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lcjQiLCJpYXQiOjE3MzAyMTIzMzMsImV4cCI6MTczMDgxNzEzM30.s1K1mGHJ-OQ8U1faGqF9zqYWtx7ATtcGEECrIcUj5qselDiRE7CfdCsXENJtvSsA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/review/restaurant/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"review",
+								"restaurant",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "/users/review",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyNSIsImlhdCI6MTczMDIxMjk4OCwiZXhwIjoxNzMwODE3Nzg4fQ.Astec5vWoRd0DtoCmSGd46bVfxNv_5daLFYxngPdaEwVZZbfPcoASh2z8pnPArvd",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/review",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"review"
+							]
+						}
 					},
 					"response": []
 				},
@@ -294,7 +1153,19 @@
 					"name": "review/restaurant/{reviewId}",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/review/restaurant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"review",
+								"restaurant"
+							]
+						}
 					},
 					"response": []
 				}
@@ -305,9 +1176,32 @@
 			"item": [
 				{
 					"name": "search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"keyword\":\"JAP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"search"
+							]
+						}
 					},
 					"response": []
 				}

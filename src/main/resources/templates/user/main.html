@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Avengers Assemble</title>
+
+        <!-- Reset CSS -->
+        <link rel="stylesheet" href="../../static/css/user/reset.css" />
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="../../static/css/user/style.css" />
+
+        <!-- Embed Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <!-- Logo -->
+                <a href="#"><img src="../../static/img/logo/Avengers1.svg" alt="Avengers Assemble" /></a>
+                <!-- Navigation -->
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <!-- Action -->
+                <div class="actions">
+                    <a href="#!" class="action-link">Sign in</a>
+                    <a href="#!" class="btn action-btn">Sign up</a>
+                </div>
+            </nav>
+        </header>
+    
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Enjoy <span class="highlight">Delicious Food</span> in Your Healthy Life</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolorum iure quaerat iste doloribus amet!</p>
+                <a href="#" class="btn">Visit Now →</a>
+            </div>
+            <div class="hero-slider">
+                <div class="slider">
+                    <img src="/static/img/main-res-img/1.jpg" alt="RES 1" class="slider-img">
+                    <img src="/static/img/main-res-img/2.jpg" alt="RES 1" class="slider-img">
+                    <img src="/static/img/main-res-img/3.jpg" alt="RES 1" class="slider-img">
+                    <img src="/static/img/main-res-img/4.jpg" alt="RES 1" class="slider-img">
+                    <img src="/static/img/main-res-img/5.jpg" alt="RES 1" class="slider-img">
+                    <img src="/static/img/main-res-img/6.jpg" alt="RES 1" class="slider-img">
+                </div>
+                
+                <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="next" onclick="changeSlide(1)">&#10095;</a>
+            </div>
+        </section>
+    
+        <script src="/static/js/user/script.js"></script>
+    </body>
+</html>

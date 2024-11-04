@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f9f3eb;
+}
+
+a {
+    text-decoration: none;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header {
+    background-color: #fff5e4; /* Màu nền khớp với trang */
+    /* padding: 20px 50px; */
+    padding: 0 50px;
+    /* display: flex; */
+    /* justify-content: space-between;
+    align-items: center; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* border-bottom: 1px solid #ccc; */
+}
+
+
+.hero-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #e6f0ff;
+    height: calc(100vh - 90px);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    justify-content: space-between;
+}
+
+.navbar ul {
+    display: flex;
+    margin-left: auto;
+}
+
+.navbar .actions {
+    margin-left: auto;
+}
+
+.navbar ul a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4f5361;
+    padding: 8px 14px;
+    
+}
+
+.navbar ul a:hover {
+    text-decoration: underline;
+}
+
+.navbar .action-link {
+    color: #ff6a00;
+    font-size: 1.1rem;
+    font-weight: 500;
+    
+}
+
+.navbar .action-btn {
+    padding: 9px 16px;
+    margin-left: 18px;
+    border-radius: 8px;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 50px;
+    background-color: #fff5e4;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero-text h1 {
+    font-size: 80px;
+    color: #333;
+}
+
+.hero-text .highlight {
+    color: #ff6a00;
+    text-decoration: underline;
+}
+
+.hero-text p {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #666;
+}
+
+.btn {
+    padding: 15px 30px;
+    background-color: #ff6a00;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 40px; 
+}
+
+.btn:hover {
+    background-color: #e55c00;
+}
+
+/* Phần CSS cho slider */
+.hero-slider {
+    position: relative;
+    margin-right: 50px;
+    max-width: 500px; 
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider-img {
+    width: 100%;
+    display: none;
+    transition: opacity 1s ease-in-out;
+    border-radius: 20px;
+}
+
+.slider-img.active {
+    display: block;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 15px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm đổ bóng */
+}
+
+.next {
+    right: -40px; 
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: -40px; 
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
