@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef;
+}
+
+h1 {
+    color: #333;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#order-info-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

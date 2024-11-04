@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Page</title>
+    <link rel="stylesheet" href="./myinfo.css">
+    <script>
+        function redirectToEditPage() {
+            window.location.href = "editInfo.html";
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <div class="user-info">
+            <img src="https://via.placeholder.com/50" alt="User avatar">
+            <div>
+                <p>Hello</p>
+                <p>이메일 : abc@example.com</p>
+                <p>전화번호 : 01012345678</p>
+            </div>
+        </div>
+        <div class="edit-info" onclick="redirectToEditPage()">정보 수정</div>
+    </div>
+
+    <!-- Reservation Section -->
+    <div class="section">
+        <div class="section-title">내 예약</div>
+        <div class="reservation-list">
+            <div class="reservation-item">
+                <span>을향</span>
+                <span>23.06.16 10:00</span>
+                <span class="status">확정</span>
+            </div>
+            <div class="reservation-item">
+                <span>을향</span>
+                <span>23.06.17 09:00</span>
+                <span class="status">취소</span>
+            </div>
+            <div class="reservation-item">
+                <span>식당153</span>
+                <span>23.06.12 13:00</span>
+                <span class="status">방문 완료</span>
+            </div>
+            <div class="reservation-item">
+                <span>고반 식당</span>
+                <span>23.06.14 16:00</span>
+                <span class="status">방문 완료</span>
+            </div>
+        </div>
+        <div class="see-all">전체 보기</div>
+    </div>
+
+    <!-- Review Section -->
+    <div class="section">
+        <div class="section-title">내 리뷰</div>
+        <div class="review-list">
+            <div class="review-item">
+                <span>식당153</span>
+                <span>23.06.16</span>
+                <span><span class="star">★</span>3 아쉽네요!! ㅠㅠ</span>
+            </div>
+        </div>
+        <div class="see-all">전체 보기</div>
+    </div>
+</div>
+
+</body>
+</html>
