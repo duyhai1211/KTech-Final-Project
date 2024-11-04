@@ -1,26 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-}
-
-h1 {
-    color: #444;
-}
-
-input {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #17a2b8;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #f5b486, #eca674);
     color: white;
-    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-section {
+    flex: 1;
+    background-color: #e48541;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.welcome-text h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.welcome-text p {
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.signup-section {
+    flex: 1;
+    background-color: #f87a20;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup-section h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #ddd;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 40px 12px 20px;
     border-radius: 5px;
+    border: none;
+    background-color: #ffffff;
+    color: white;
+}
+
+.input-group .icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.checkbox-group input {
+    margin-right: 10px;
+}
+
+.checkbox-group label {
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #dc620b;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ffffff;
+}
+
+.signin-text {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.signin-text a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.signin-text a:hover {
+    text-decoration: underline;
 }

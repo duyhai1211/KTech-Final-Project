@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Registration</title>
+    <link rel="stylesheet" href="../../static/css/restaurant/restaurantAdd.css">
+</head>
+<body>
+    <div class="container">
+        <h2>식당 이름</h2>
+        <input type="text" placeholder="test용 식당">
+
+        <h2>식당 이미지</h2>
+        <input type="file">
+
+        <h2>식당 소개</h2>
+        <input type="text" placeholder="식당 소개를 입력해주세요.">
+
+        <h2>식당 유형</h2>
+        <select>
+            <option>식당 유형을 선택해주세요.</option>
+        </select>
+
+        <h2>전화번호</h2>
+        <input type="text" placeholder="식당 전화번호를 입력해주세요.">
+
+        <!-- <h2>대주소</h2>
+        <select>
+            <option>선택해주세요</option>
+        </select>
+
+        <h2>중주소</h2>
+        <select>
+            <option>선택해주세요</option>
+        </select>
+
+        <h2>소주소</h2>
+        <select>
+            <option>선택해주세요</option>
+        </select> -->
+
+        <h2>상세 주소</h2>
+        <input type="text" placeholder="상세주소 적어주세요.">
+
+        <h2>오픈시간</h2>
+        <input type="text" placeholder="영업시작 시간을 입력해주세요.">
+
+        <h2>마감시간</h2>
+        <input type="text" placeholder="영업마감 시간을 입력해주세요.">
+
+        <h2>메뉴</h2>
+        <div id="menu-container">
+            <!-- Menu items will be added here dynamically -->
+            <div class="menu-section">
+                <input type="text" placeholder="메뉴 이름을 입력해주세요.">
+                <input type="text" placeholder="메뉴 가격은 500원 - 1,000,000원">
+                <button type="button" class="menu-button" onclick="addMenu()">메뉴 추가</button>
+            </div>
+        </div>
+
+        <button class="submit-button">식당 등록</button>
+    </div>
+
+    <script>
+        function addMenu() {
+            // Tạo phần tử menu mới
+            const menuContainer = document.getElementById("menu-container");
+            const newMenuSection = document.createElement("div");
+            newMenuSection.classList.add("menu-section");
+
+            // Thêm trường "메뉴 이름" và "메뉴 가격"
+            const menuNameInput = document.createElement("input");
+            menuNameInput.type = "text";
+            menuNameInput.placeholder = "메뉴 이름을 입력해주세요.";
+
+            const menuPriceInput = document.createElement("input");
+            menuPriceInput.type = "text";
+            menuPriceInput.placeholder = "메뉴 가격은 500원 - 1,000,000원";
+
+            // Nút "메뉴 삭제"
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.classList.add("menu-button");
+            deleteButton.textContent = "메뉴 삭제";
+            deleteButton.onclick = function() {
+                menuContainer.removeChild(newMenuSection);
+            };
+
+            // Thêm các phần tử vào newMenuSection
+            newMenuSection.appendChild(menuNameInput);
+            newMenuSection.appendChild(menuPriceInput);
+            newMenuSection.appendChild(deleteButton);
+
+            // Thêm newMenuSection vào menuContainer
+            menuContainer.appendChild(newMenuSection);
+        }
+    </script>
+</body>
+</html>
