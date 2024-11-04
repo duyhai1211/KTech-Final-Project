@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reservation Page</title>
+        <link rel="stylesheet" href="../../static/css/restaurant/resmain.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <img
+                    src="./asset/img/main res img/1.jpg"
+                    alt="Restaurant Image"
+                    class="restaurant-image"
+                />
+                <div class="header-info">
+                    <h1>을향 <span class="rating">⭐ 4.2 (5)</span></h1>
+                    <p class="description">
+                        T맵, 카카오맵 등 네비게이션에 을향 검색 후 찾아오시면
+                        됩니다
+                    </p>
+                    <p>
+                        <strong>영업 시간:</strong> 08:00 ~ 21:00
+                        <strong>전화번호:</strong> 032-752-2227
+                    </p>
+                    <p><strong>주소:</strong> 인천광역시 중구 을왕동 686-5</p>
+                </div>
+            </div>
+
+            <h2>메뉴</h2>
+            <div class="menu">
+                <div class="menu-item">물회(1인) <span>27000원</span></div>
+                <div class="menu-item">물회(2인) <span>49000원</span></div>
+                <div class="menu-item">물회 중(2-3인) <span>64000원</span></div>
+                <div class="menu-item">물회 대(4인) <span>79000원</span></div>
+                <div class="menu-item">전복 물회 <span>69000원</span></div>
+                <div class="menu-item">녹두전복죽 <span>19000원</span></div>
+            </div>
+
+            <h2>예약하기</h2>
+            <form class="reservation-form">
+                <label for="name">이름</label>
+                <input type="text" id="name" placeholder="이름 입력" />
+
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" placeholder="전화번호 입력" />
+
+                <label for="date">날짜</label>
+                <input type="date" id="date" />
+
+                <label for="time">시간</label>
+                <select id="time">
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                    <option value="00:00">00:00</option>
+                </select>
+
+                <label for="people">인원 수</label>
+                <input
+                    type="number"
+                    id="people"
+                    min="1"
+                    max="10"
+                    placeholder="인원 수 입력"
+                />
+
+                <button type="submit">예약하기</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -2,16 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="/css/user/signup.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/user/signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <input type="text" id="signup-username" placeholder="Username">
-    <input type="password" id="signup-password" placeholder="Password">
-    <input type="email" id="signup-email" placeholder="Email">
-    <button onclick="signUp()">Sign Up</button>
+    <div class="container">
+        <div class="welcome-section">
+            <div class="logo">
+                <h1></h1>
+            </div>
+            <div class="welcome-text">
+                <h1>Welcome! <br>To Our System</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, repellendus?</p>
+                <div class="social-icons">
+                    <!-- <a href="#"><img src="facebook-icon.svg" alt="Facebook"></a>
+                    <a href="#"><img src="twitter-icon.svg" alt="Twitter"></a>
+                    <a href="#"><img src="youtube-icon.svg" alt="YouTube"></a>
+                    <a href="#"><img src="instagram-icon.svg" alt="Instagram"></a>
+                    <a href="#"><img src="linkedin-icon.svg" alt="LinkedIn"></a> -->
+                </div>
+            </div>
+        </div>
 
-    <script src="/js/user/signup.js"></script>
+        <div class="signup-section">
+            <h2>Sign Up</h2>
+            <form action="#" class="signup-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                    <!-- <span class="icon"><img src="user-icon.svg" alt="User Icon"></span> -->
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <!-- <span class="icon"><img src="email-icon.svg" alt="Email Icon"></span> -->
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                    <!-- <span class="icon"><img src="lock-icon.svg" alt="Lock Icon"></span> -->
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree">
+                    <label for="agree">I agree with this statement</label>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+                <p class="signin-text">Already Have An Account? <a href="#">Sign In</a></p>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

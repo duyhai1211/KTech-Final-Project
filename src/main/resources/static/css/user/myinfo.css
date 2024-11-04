@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FDEFEF;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.header .user-info {
+    display: flex;
+    align-items: center;
+}
+.header .user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.header .user-info div {
+    font-size: 14px;
+}
+.header .edit-info {
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+}
+.section {
+    margin-top: 15px;
+}
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.reservation-list, .review-list {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 10px;
+}
+.reservation-item, .review-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+.reservation-item:last-child, .review-item:last-child {
+    border-bottom: none;
+}
+.reservation-item span, .review-item span {
+    font-size: 13px;
+}
+.reservation-item .status {
+    font-weight: bold;
+}
+.review-item .star {
+    color: #F7B500;
+    margin-right: 5px;
+}
+.see-all {
+    text-align: right;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+}
