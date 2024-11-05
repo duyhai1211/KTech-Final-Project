@@ -3,13 +3,16 @@ package com.example.foodle.reservation.entity;
 import com.example.foodle.BaseEntity;
 import com.example.foodle.auth.entity.UserEntity;
 import com.example.foodle.restaurant.entity.Restaurant;
+import com.example.foodle.review.entity.Review;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Builder

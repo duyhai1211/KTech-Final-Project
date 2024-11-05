@@ -60,7 +60,7 @@ public class RestaurantController {
     //profile restaurant
     @PutMapping("/upload-profile-image")
     public ResponseEntity<String> uploadProfileImage(
-                                                     @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file) {
         try {
             RestaurantDto fileName = restaurantService.uploadProfileImage(file);
             return new ResponseEntity<>("Image uploaded successfully: " + fileName, HttpStatus.OK);
@@ -115,5 +115,3 @@ public class RestaurantController {
 
 
 }
-
-

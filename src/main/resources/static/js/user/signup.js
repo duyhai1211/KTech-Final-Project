@@ -1,4 +1,3 @@
-
 const jwt = localStorage.getItem("token") ?? null;
 if (jwt) fetch("/users/get-user-info", {
     headers: {

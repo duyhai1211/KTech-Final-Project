@@ -17,6 +17,7 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 public class WebSecurityConfig {
     private final JwtTokenUtils jwtTokenUtils;
     private final UserDetailsService manager;
+    private final CustomOAuth2UserService oAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -25,30 +26,36 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(
-                            "/users/signin",
-                            "/users/signup",
+                                    "/users/signin",
+                                    "/users/signup",
+                                    "/users/signup-owner",
+                                    "/search"
+                            )
+                            .anonymous();
+                    auth.requestMatchers(
+                                    "/users/update",
+                                    "/users/profile",
+                                    "/users/get-user-info",
+                                    "/reservation/create",
+                                    "/reservation/user/**",
+                                    "/users/review/**"
 
-                            "users/signup-owner"
-                    )
-                    .anonymous();
+
+//
+                            )
+                            .authenticated();
                     auth.requestMatchers(
-                            "/users/update",
-                            "/users/profile",
-                            "/users/get-user-info",
-                            "reservation/user/**"
-                    )
-                    .authenticated();
+                                    "/admin",
+                                    "/admin/**"
+                            )
+                            .hasRole("ADMIN");
                     auth.requestMatchers(
-                            "/admin",
-                            "/admin/**"
-                    )
-                    .hasRole("ADMIN");
-                    auth.requestMatchers(
-                            "/restaurant/**",
-                            "/reservation/restaurant/**"
-                    )
-                    .hasRole("OWNER");
-                    auth.requestMatchers("/error", "/static/**", "/views/**", "/")
+                                    "/restaurant/**",
+                                    "/reservation/restaurant/**"
+
+                            )
+                            .hasRole("OWNER");
+                    auth.requestMatchers("/error", "/static/**", "/views/**","/review/**", "/")
                             .permitAll();
                     auth.anyRequest()
                             .hasRole("ACTIVE");
@@ -56,6 +63,12 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/users/loginForm")
+                        .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+                        .defaultSuccessUrl("/user", true))
+
                 .addFilterBefore(
                         new JwtTokenFilter(
                                 jwtTokenUtils,

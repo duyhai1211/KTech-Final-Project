@@ -40,6 +40,8 @@ public class UserService implements UserDetailsService {
         createAdminAccount();
     }
 
+
+    // Phương thức kiểm tra và tạo tài khoản admin nếu chưa tồn tại
     private void createAdminAccount() {
         //kiemtra xem user ton tai chua
         if (!userRepo.existsByUsername("admin")) {
@@ -73,6 +75,8 @@ public class UserService implements UserDetailsService {
                 .roles("ROLE_USER")
                 .build()));
     }
+
+
     @Transactional
     public UserDto createOwner(CreateUserDto dto) {
         if (!dto.getPassword().equals(dto.getPasswordCheck()))

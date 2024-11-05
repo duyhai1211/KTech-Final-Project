@@ -1,17 +1,33 @@
+const jwt = localStorage.getItem("token") ?? null;
+if (jwt) fetch("/users/get-user-info", {
+    headers: {
+        "Authorization": `Bearer ${jwt}`,
+    },
+}).then(response => {
+    if (response.ok) location.href = "/views";
+})
 
-function signIn() {
-    const username = document.getElementById("signin-username").value;
-    const password = document.getElementById("signin-password").value;
-
+const loginForm = document.getElementById("login-form");
+const usernameInput = document.getElementById("username-input");
+const passwordInput = document.getElementById("password-input");
+loginForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const username = usernameInput.value;
+    const password = passwordInput.value;
     fetch("/users/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify({ username, password }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Sign In Success:", data);
-            alert("Sign In Successful");
+        .then(response => {
+            if (response.ok) return response.json();
+            else throw Error("failed to login");
         })
-        .catch((error) => console.error("Error:", error));
-}
+        .then(json => {
+            localStorage.setItem("token", json.token);
+            location.href = "/views";
+        })
+        .catch(error => alert(error.message));
+});

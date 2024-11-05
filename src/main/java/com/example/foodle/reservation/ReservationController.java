@@ -1,14 +1,14 @@
+
 package com.example.foodle.reservation;
 
 import com.example.foodle.reservation.dto.ReservationDto;
-import com.example.foodle.reservation.entity.Reservation;
-import com.example.foodle.restaurant.dto.RestaurantDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -16,13 +16,17 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ReservationDto createReservation(@RequestBody ReservationDto reservation, @RequestParam Long restaurantId  ) {
         return reservationService.createReservation(reservation,restaurantId);
     }
     @GetMapping("/user")
     public Page<ReservationDto> getReservationsForUser(Pageable pageable) {
         return reservationService.myReservation(pageable);
+    }
+    @GetMapping("/restaurant")
+    public Page<ReservationDto> getReservationsForRes(Pageable pageable) {
+        return reservationService.myReservations(pageable);
     }
     @PostMapping("/restaurant/{reservationId}/complete")
     public ReservationDto completeReservationRes(@PathVariable Long reservationId) {
@@ -37,13 +41,13 @@ public class ReservationController {
         return reservationService.confirmReservation(reservationId);
     }
     @PostMapping("/restaurant/{reservationId}/cancel")
-    public ReservationDto cancelReservationRes(@PathVariable Long reservationId, @RequestParam String reason) {
-        return reservationService.cancelReservation(reservationId, reason);
+    public ReservationDto cancelReservationRes(@PathVariable Long reservationId, @RequestBody String reason) {
+        return reservationService.cancelReservation(reservationId,reason);
 
     }
     @PostMapping("/user/{reservationId}/cancel")
-    public ReservationDto cancelReservationUser(@PathVariable Long reservationId,@RequestParam String reason) {
-        return reservationService.cancelReservation(reservationId, reason);
+    public ReservationDto cancelReservationUser(@PathVariable Long reservationId, @RequestBody String reason) {
+        return reservationService.cancelReservation(reservationId,reason);
     }
 
 

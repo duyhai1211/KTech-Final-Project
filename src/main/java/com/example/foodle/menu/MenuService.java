@@ -1,7 +1,7 @@
+
 package com.example.foodle.menu;
 
-import com.example.foodle.FileHandlerUtils;
-import com.example.foodle.auth.AuthenticationFacade;
+
 import com.example.foodle.menu.dto.MenuDto;
 import com.example.foodle.menu.entity.Menu;
 import com.example.foodle.menu.repository.MenuRepo;
@@ -21,8 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class MenuService {
     private final RestaurantRepository restaurantRepository;
     private final MenuRepo menuRepository;
-    private final AuthenticationFacade facade;
-    private final FileHandlerUtils imageFileUtils;
+
 
     public Page<MenuDto> readPage(
             Long resId,
@@ -40,8 +39,8 @@ public class MenuService {
         }
         return MenuDto.fromEntity(item);
     }
-    private void checkResStatus(Long shopId) {
-        Restaurant restaurant = restaurantRepository.findById(shopId)
+    private void checkResStatus(Long resId) {
+        Restaurant restaurant = restaurantRepository.findById(resId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (restaurant.getStatus() != Restaurant.Status.OPEN) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);

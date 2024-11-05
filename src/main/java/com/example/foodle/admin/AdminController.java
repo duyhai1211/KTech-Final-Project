@@ -1,3 +1,4 @@
+
 package com.example.foodle.admin;
 
 import com.example.foodle.admin.dto.AdminOpenRequestDto;
@@ -37,6 +38,11 @@ public class AdminController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @PostMapping("/{requestId}/reject")
+    public ResponseEntity<String> rejectOpenRequest(@PathVariable Long requestId, @RequestBody String reason) {
+        adminOpenRequestService.rejectOpenRequest(requestId, reason);
+        return ResponseEntity.ok("yêu cầu bị từ chối");
     }
 
 
