@@ -4,7 +4,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background-color: #fff5e4;
+    background-color: #f5e4c5;
 }
 
 a {
@@ -17,7 +17,7 @@ a {
 }
 
 header {
-    background-color: #fff5e4; /* Màu nền khớp với trang */
+    background-color: #f5e4c5; /* Màu nền khớp với trang */
     /* padding: 20px 50px; */
     padding: 0 50px;
     /* display: flex; */
@@ -33,7 +33,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #e6f0ff;
+    background: #f5e4c5;
     height: calc(100vh - 90px);
 
 }
@@ -84,7 +84,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 100px 50px;
-    background-color: #fff5e4;
+    background-color: #f5e4c5;
 }
 
 .hero-text {
@@ -104,7 +104,7 @@ header {
 .hero-text p {
     margin: 40px 0;
     /* margin-top: 70px; */
-    font-size: 20px;
+    font-size: 18px;
     color: #666;
 }
 
