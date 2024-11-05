@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Nhà hàng</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Quản lý Nhà hàng</h1>
+
+    <!-- Form yêu cầu mở nhà hàng -->
+    <h3>Yêu cầu mở nhà hàng</h3>
+    <form id="openRestaurantForm">
+        <div class="form-group">
+            <label for="restaurantName">Tên nhà hàng:</label>
+            <input type="text" class="form-control" id="restaurantName" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Gửi yêu cầu mở nhà hàng</button>
+    </form>
+
+    <!-- Xem thông tin nhà hàng hiện tại -->
+    <h3 class="mt-5">Thông tin Nhà hàng</h3>
+    <button id="getRestaurantInfoBtn" class="btn btn-info">Xem thông tin nhà hàng</button>
+    <div id="restaurantInfo" class="mt-3">
+        <!-- Thông tin nhà hàng sẽ hiển thị ở đây -->
+    </div>
+
+    <!-- Nút mở nhà hàng cho user là chủ nhà hàng -->
+    <h3 class="mt-5">Mở Nhà hàng</h3>
+    <button id="openRestaurantBtn" class="btn btn-success">Mở Nhà hàng</button>
+</div>
+
+<!-- Tải file JavaScript -->
+<script src="/static/js/restaurant/restaurant-request.js"></script></body>
+</html>

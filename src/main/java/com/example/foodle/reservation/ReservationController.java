@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
     private final ReservationService reservationService;
 
-    @PostMapping("/create")
+    @PostMapping("/{restaurantId}")
     public ReservationDto createReservation(@RequestBody ReservationDto reservation, @RequestParam Long restaurantId  ) {
         return reservationService.createReservation(reservation,restaurantId);
     }
@@ -24,7 +24,7 @@ public class ReservationController {
     public Page<ReservationDto> getReservationsForUser(Pageable pageable) {
         return reservationService.myReservation(pageable);
     }
-    @GetMapping("/restaurant")
+    @GetMapping("/restaurant/user")
     public Page<ReservationDto> getReservationsForRes(Pageable pageable) {
         return reservationService.myReservations(pageable);
     }

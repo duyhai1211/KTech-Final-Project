@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Đặt chỗ</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Quản lý Đặt chỗ</h1>
+    <h2 class="mt-4">Đặt chỗ của Người dùng</h2>
+    <div id="user-reservations">
+        <div th:each="userReservation : ${userReservations}" class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">ID Đặt chỗ của Người dùng: <span th:text="${userReservation.id}"></span></h5>
+                <p class="card-text">Thông tin: <span th:text="${userReservation.info}"></span></p>
+                <button class="btn btn-success complete-btn" data-id="${userReservation.id}">Hoàn thành Đặt chỗ của Người dùng</button>
+                <button class="btn btn-danger cancel-btn" data-id="${userReservation.id}">Hủy Đặt chỗ của Người dùng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/reservation/restaurant-reservations.js"></script>
+</body>
+</html>
