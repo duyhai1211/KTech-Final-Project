@@ -86,7 +86,20 @@ public class UserService implements UserDetailsService {
                 .roles("ROLE_OWNER")
                 .build()));
     }
+    @Transactional
+    public void logout(String token) {
+        if (token == null || !jwtTokenUtils.validate(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid or expired token");
+        }
 
+        String username = jwtTokenUtils.getUsernameFromToken(token);
+        userRepo.findByUsername(username).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+        );
+
+        jwtTokenUtils.invalidateToken(token);
+        log.info("User {} has been logged out", username);
+    }
     public JwtResponseDto signin(JwtRequestDto dto) {
         UserEntity userEntity = userRepo.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
@@ -101,6 +114,7 @@ public class UserService implements UserDetailsService {
         response.setToken(jwt);
         return response;
     }
+
 
     public UserDto updateUser(UpdateUserDto dto){
         UserEntity userEntity = authFacade.extractUser();

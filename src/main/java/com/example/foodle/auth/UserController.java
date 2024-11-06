@@ -57,7 +57,13 @@ public class UserController {
     ) {
         return userService.profileImg(file);
     }
-
+    @PostMapping("logout")
+    public void logout(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        userService.logout(token);
+    }
     @GetMapping("get-user-info")
     public UserDto getUserInfo() {
         return userService.getUserInfo();

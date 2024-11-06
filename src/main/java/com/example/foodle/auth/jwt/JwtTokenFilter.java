@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUtils tokenUtils;
-    private final UserDetailsService service;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -29,39 +29,43 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        String authHeader =
-                request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (authHeader == null) {
+        // Get Authorization header
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String[] headerSplit = authHeader.split(" ");
-        if (headerSplit.length != 2 || !headerSplit[0].equals("Bearer")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        // Extract JWT from Authorization header
+        String jwt = authHeader.substring(7);
 
-        String jwt = headerSplit[1];
+        // Validate the token and check if it has been blacklisted
         if (!tokenUtils.validate(jwt)) {
+            log.warn("Invalid or blacklisted token: {}", jwt);
             filterChain.doFilter(request, response);
             return;
         }
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        String username = tokenUtils
-                .parseClaims(jwt)
-                .getSubject();
-        UserDetails userDetails = service.loadUserByUsername(username);
+
+        // Extract username from the token
+        String username = tokenUtils.getUsernameFromToken(jwt);
+
+        // Load user details
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        // Create authentication object and set it in the SecurityContext
         AbstractAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
                         userDetails,
-                        userDetails.getPassword(),
+                        null, // Password should not be exposed
                         userDetails.getAuthorities()
                 );
 
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
 
+        // Continue the filter chain
         filterChain.doFilter(request, response);
     }
 }

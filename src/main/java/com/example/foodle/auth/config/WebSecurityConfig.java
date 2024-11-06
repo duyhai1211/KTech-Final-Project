@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 
                     // Yêu cầu xác thực cho các endpoint này
                     auth.requestMatchers("/users/update", "/users/profile", "/users/get-user-info",
-                                    "/reservation/create", "/reservation/user/**", "/users/review/**")
+                                    "/reservation/create", "/reservation/user/**","/users/logout"," /users/review/**")
                             .authenticated();
 
                     // Chỉ cho phép ROLE_ADMIN vào các endpoint của admin
