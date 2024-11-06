@@ -7,7 +7,7 @@ import com.example.foodle.auth.entity.UserEntity;
 import com.example.foodle.auth.jwt.JwtTokenUtils;
 import com.example.foodle.auth.repo.UserRepo;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
