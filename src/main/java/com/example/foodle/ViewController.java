@@ -21,5 +21,6 @@ public class ViewController {
         return "user/signup"; // Điều hướng đến templates/user/signup.html
     }
 
-
+    @GetMapping("/restaurant")
+    public String
 }
