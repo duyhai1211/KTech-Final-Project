@@ -21,8 +21,5 @@ public class ViewController {
         return "user/signup"; // Điều hướng đến templates/user/signup.html
     }
 
-    @GetMapping("/users/orders")
-    public String ordersPage() {
-        return "user/orders"; // Điều hướng đến templates/user/orders.html
-    }
+
 }
