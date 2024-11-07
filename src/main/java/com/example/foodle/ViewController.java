@@ -43,6 +43,11 @@ public class ViewController {
         return "user/update";
     }
 
+    @GetMapping("restaurant/all")
+    public String restaurantPage() {
+        return "restaurant/restaurantAll";
+    }
+
 
 
 }

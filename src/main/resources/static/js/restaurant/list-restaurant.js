@@ -1,37 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Fetch and display all restaurants on page load
-    fetchRestaurants();
-
-    // Add event listener for the search button
-    document.getElementById("searchButton").addEventListener("click", () => {
-        const keyword = document.getElementById("searchInput").value.trim();
-        fetchRestaurants(keyword);
-    });
+    fetchAllRestaurants();
 });
 
-// Function to fetch restaurants with an optional search keyword
-function fetchRestaurants(keyword = "") {
-    const url = keyword ? `/search?keyword=${encodeURIComponent(keyword)}` : "restaurant/all";
-
-    fetch(url)
+// Function to fetch all restaurants from the API
+function fetchAllRestaurants() {
+    fetch("/restaurant/all")
         .then(response => response.json())
         .then(data => {
             const restaurantList = document.getElementById("restaurantList");
-            restaurantList.innerHTML = ""; // Clear previous results
+            restaurantList.innerHTML = ""; // Clear any existing content
 
             if (data.content && data.content.length > 0) {
+                // Display each restaurant using the API data
                 data.content.forEach(restaurant => {
                     const card = createRestaurantCard(restaurant);
                     restaurantList.appendChild(card);
                 });
             } else {
+                // Show message if no restaurants found
                 restaurantList.innerHTML = "<p>No restaurants found.</p>";
             }
         })
         .catch(error => console.error("Error fetching restaurants:", error));
 }
 
-// Function to create a restaurant card element
+// Function to create and return a restaurant card element
 function createRestaurantCard(restaurant) {
     const card = document.createElement("div");
     card.className = "restaurant-card";
