@@ -1,7 +1,7 @@
 /* Đặt toàn bộ trang ở giữa và giới hạn chiều rộng */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f5e4c5;
     margin: 0;
     padding: 0;
     display: flex;
@@ -62,7 +62,7 @@ a:hover {
 
 /* Nút Submit */
 .btn-primary {
-    background-color: #007bff;
+    background-color: #ff6a00;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -74,7 +74,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #ff2b55;
 }
 
 /* Định dạng container ảnh */

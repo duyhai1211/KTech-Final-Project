@@ -2,6 +2,7 @@ package com.example.foodle;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -48,6 +49,9 @@ public class ViewController {
         return "restaurant/restaurantAll";
     }
 
-
+    @GetMapping("/restaurant/{restaurantId}")
+    public String restaurantDetailPage(@PathVariable Long restaurantId) {
+        return "restaurant/restaurantDetail"; // Redirect to the restaurant detail page
+    }
 
 }

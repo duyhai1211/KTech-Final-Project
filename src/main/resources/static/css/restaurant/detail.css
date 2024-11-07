@@ -1,0 +1,141 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+/* Header */
+.header {
+    background-color: #ff6a00;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.header nav .back-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.header .restaurant-name {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Main Container */
+.main-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-section {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.restaurant-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.restaurant-info p {
+    margin-bottom: 10px;
+}
+
+/* Menu Section */
+.menu-section, .review-section {
+    margin-top: 20px;
+}
+
+.menu-section h2, .review-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.menu-list, .reviews-list {
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item, .review-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-item:last-child, .review-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item strong {
+    font-size: 16px;
+}
+
+.review-item {
+    color: #666;
+}
+
+.review-item strong {
+    color: #333;
+}
+
+/* Reservation Button */
+.reservation {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reserve-button {
+    background-color: #ff6a00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reserve-button:hover {
+    background-color: #e05a00;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-size: 14px;
+}
+.menu-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
