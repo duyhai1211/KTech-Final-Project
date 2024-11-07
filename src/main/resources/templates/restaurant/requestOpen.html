@@ -9,11 +9,36 @@
 <div class="container">
   <h1>Request to Open a New Restaurant</h1>
   <form id="requestOpenForm">
+    <!-- Tên nhà hàng -->
     <label for="name">Restaurant Name:</label>
     <input type="text" id="name" required>
 
+    <!-- Địa chỉ nhà hàng -->
     <label for="address">Address:</label>
     <input type="text" id="address" required>
+
+    <!-- Sức chứa của nhà hàng -->
+    <label for="capacity">Capacity:</label>
+    <input type="number" id="capacity" required>
+
+    <!-- Số điện thoại -->
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" required>
+
+    <!-- Mô tả nhà hàng -->
+    <label for="description">Description:</label>
+    <textarea id="description" rows="4" required></textarea>
+
+    <!-- Loại hình nhà hàng -->
+    <label for="category">Category:</label>
+    <select id="category" required>
+      <option value="JAP">Japanese</option>
+      <option value="ITL">Italian</option>
+      <option value="FRN">French</option>
+      <option value="CHN">Chinese</option>
+      <option value="IND">Indian</option>
+      <!-- Thêm các loại hình nhà hàng khác tùy chọn -->
+    </select>
 
     <button type="submit">Submit Request</button>
   </form>
