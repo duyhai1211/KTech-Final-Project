@@ -36,7 +36,7 @@ header {
 
 .navbar ul {
     display: flex;
-    margin-left: auto;
+    /* margin-left: 0px; */
 }
 
 .navbar .actions {
@@ -89,7 +89,8 @@ header {
 .search-bar {
     display: flex;
     justify-content: center;
-    margin: 1em 0;
+    margin-top: 100px;
+    /* margin: 1em 0; */
 }
 
 .search-bar input[type="text"] {
