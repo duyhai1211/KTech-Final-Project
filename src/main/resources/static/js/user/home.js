@@ -1,28 +1,73 @@
+let allRestaurants = []; // Biến để lưu trữ danh sách tất cả nhà hàng
+
 // Hàm chuyển sang trang "My Info"
 function goToMyInfo() {
-    window.location.href = '/user/myinfo';
+    window.location.href = '/views/user/myinfo';
 }
 
-// Hàm tìm kiếm nhà hàng
+// Hàm lấy tất cả nhà hàng khi tải trang lần đầu
+function loadAllRestaurants() {
+    fetch('/restaurants/all')
+        .then(response => response.json())
+        .then(data => {
+            allRestaurants = data.content; // Lưu tất cả nhà hàng vào biến
+            displayRestaurants(allRestaurants); // Hiển thị toàn bộ nhà hàng
+        })
+        .catch(error => console.error('Lỗi khi tải tất cả nhà hàng:', error));
+}
+
+// Hàm hiển thị danh sách nhà hàng động
+function displayRestaurants(restaurants) {
+    const restaurantList = document.querySelector('.restaurant-list');
+    restaurantList.innerHTML = ''; // Xóa danh sách nhà hàng hiện tại
+
+    // Tạo và hiển thị các thẻ nhà hàng mới từ dữ liệu API
+    restaurants.forEach(restaurant => {
+        const card = document.createElement('div');
+        card.classList.add('restaurant-card');
+        card.innerHTML = `
+            <img src="${restaurant.image || 'default.jpg'}" alt="Restaurant Image">
+            <h3>${restaurant.name}</h3>
+            <p>${restaurant.cuisine} • Reviews: ${restaurant.reviews} ★★★★★</p>
+            <p>${restaurant.location}</p>
+            <p>${restaurant.phone}</p>
+        `;
+        restaurantList.appendChild(card);
+    });
+}
+
+// Hàm tìm kiếm nhà hàng dựa trên từ khóa và vị trí
 function searchRestaurants() {
-    // Lấy giá trị từ ô nhập tên nhà hàng và vị trí
-    const restaurantName = document.getElementById("restaurantName").value;
-    const location = document.getElementById("location").value;
+    const restaurantName = document.getElementById("restaurantName").value.toLowerCase();
+    const location = document.getElementById("location").value.toLowerCase();
 
-    // Hiển thị dữ liệu tìm kiếm trong console để kiểm tra
-    console.log(`Searching for restaurant: ${restaurantName} at location: ${location}`);
+    // Lọc danh sách nhà hàng dựa trên từ khóa
+    const filteredRestaurants = allRestaurants.filter(restaurant => {
+        const nameMatch = restaurant.name.toLowerCase().includes(restaurantName);
+        const locationMatch = restaurant.location.toLowerCase().includes(location);
+        return nameMatch && locationMatch;
+    });
 
-    // Giả sử thực hiện tìm kiếm với API hoặc dữ liệu mẫu
-    // Nếu cần, bạn có thể thêm logic gọi API tại đây để tìm kiếm
-    alert(`Tìm kiếm nhà hàng: ${restaurantName} tại vị trí: ${location}`);
+    displayRestaurants(filteredRestaurants); // Hiển thị danh sách nhà hàng đã lọc
 }
 
-// Hàm hiển thị trang cụ thể
+// Hàm hiển thị trang cụ thể khi chọn số trang
 function showPage(pageNumber) {
     console.log(`Navigating to page: ${pageNumber}`);
-
-    // Logic hiển thị trang với số trang cụ thể
-    alert(`Hiển thị trang: ${pageNumber}`);
+    // Gọi API phân trang nếu cần thiết
+    fetch(`/api/getRestaurants?page=${pageNumber}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayRestaurants(data.restaurants); // Hiển thị các nhà hàng của trang hiện tại
+            } else {
+                alert('Không thể tải danh sách nhà hàng.');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi thay đổi trang:', error);
+            alert('Có lỗi xảy ra khi thay đổi trang.');
+        });
 
     // Đặt trạng thái của trang hiện tại
     const activePage = document.querySelector(".pagination .active");
@@ -45,3 +90,6 @@ function changePage(direction) {
     // Hiển thị trang mới và cập nhật trạng thái
     showPage(newPage);
 }
+
+// Gọi hàm loadAllRestaurants khi trang tải
+document.addEventListener('DOMContentLoaded', loadAllRestaurants);

@@ -29,7 +29,7 @@ document.querySelector('.signin-form').addEventListener('submit', async (event) 
             }
 
             // Chuyển hướng đến trang chính (main)
-            window.location.href = "/users";
+            window.location.href = "/views/users";
         } else {
             // Xử lý lỗi từ server (nếu có)
             const errorData = await response.json();
@@ -57,20 +57,4 @@ async function fetchWithAuth(url, options = {}) {
     return fetch(url, options);
 }
 
-// Sử dụng hàm fetchWithAuth cho các request yêu cầu xác thực
-document.addEventListener("DOMContentLoaded", async () => {
-    try {
-        // Ví dụ: Lấy dữ liệu từ /admin sau khi trang đã tải
-        const response = await fetchWithAuth("/admin");
-        if (response.ok) {
-            // Xử lý dữ liệu từ response nếu cần
-            const data = await response.json();
-            console.log("Dữ liệu từ /admin:", data);
-        } else if (response.status === 403) {
-            alert("Bạn không có quyền truy cập vào trang này. Vui lòng đăng nhập.");
-            window.location.href = "/users/login"; // Chuyển đến trang đăng nhập nếu không có quyền
-        }
-    } catch (error) {
-        console.error("Đã xảy ra lỗi:", error);
-    }
-});
+

@@ -1,5 +1,5 @@
 // URL API endpoint
-const url = "/users/signup-owner";
+const url = "/views/users/signup-owner";
 
 // Lắng nghe sự kiện submit của form
 document.querySelector('.signup-form').addEventListener('submit', async (event) => {
@@ -36,7 +36,7 @@ document.querySelector('.signup-form').addEventListener('submit', async (event) 
             }
 
             // Chuyển hướng đến trang đăng nhập
-            window.location.href = "/users/login";
+            window.location.href = "/views/users/login";
         } else {
             // Xử lý lỗi từ server (nếu có)
             const errorData = await response.json();

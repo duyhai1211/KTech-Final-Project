@@ -18,7 +18,7 @@ function navigateToHome() {
         .then(data => {
             if (data.success) {
                 // Nếu API trả về thành công, điều hướng về trang chủ
-                window.location.href = '/';
+                window.location.href = '/views/users';
             } else {
                 // Xử lý khi có lỗi từ server
                 alert('Có lỗi xảy ra, không thể điều hướng về trang chủ');
@@ -39,7 +39,7 @@ document.querySelector('#home-link').addEventListener('click', function (event) 
 // Sự kiện click vào biểu tượng người dùng để điều hướng đến trang thông tin người dùng
 document.querySelector('.user-profile .user-icon').addEventListener('click', function (event) {
     event.preventDefault();  // Ngăn chặn hành động mặc định của liên kết
-    window.location.href = '/users/myinfo';  // Điều hướng đến trang thông tin người dùng
+    window.location.href = '/views/users/myinfo';  // Điều hướng đến trang thông tin người dùng
 });
 
 // Tìm kiếm nhà hàng khi nhấn nút Tìm kiếm
@@ -128,5 +128,5 @@ document.querySelector('.pagination').addEventListener('click', function(event) 
 
 
 function redirectToUserUpdatePage() {
-    window.location.href = "/user/update";  // Đường dẫn đến trang cập nhật thông tin người dùng
+    window.location.href = "/views/user/update";  // Đường dẫn đến trang cập nhật thông tin người dùng
 }

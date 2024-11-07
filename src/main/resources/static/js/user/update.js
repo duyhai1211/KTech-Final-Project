@@ -1,5 +1,5 @@
 const jwt = localStorage.getItem("token");
-if (!jwt) location.href = "/views/login";
+if (!jwt) location.href = "/views/users/login";
 
 const nicknameInput = document.getElementById("nickname-input");
 const nameInput = document.getElementById("name-input");
@@ -32,7 +32,7 @@ fetch("/users/get-user-info", {
         loggedIn = response.ok;
         if (!loggedIn) {
             localStorage.removeItem("token");
-            location.href = "/views/login";
+            location.href = "/views/users/login";
         }
         return response.json();
     })
@@ -58,7 +58,7 @@ updateForm.addEventListener("submit", e => {
         .then(response => {
             if (response.ok) location.reload();
             else if (response.status === 403)
-                location.href = "/views/login";
+                location.href = "/views/users/login";
             else alert(response.status);
         });
 });
@@ -80,7 +80,7 @@ imageForm.addEventListener("submit", e => {
     }).then(response => {
         if (response.ok) location.reload();
         else if (response.status === 403)
-            location.href = "/views/login";
+            location.href = "/views/users/login";
         else alert(response.status);
     });
 });
