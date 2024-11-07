@@ -23,7 +23,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     // Cho phép truy cập ẩn danh vào các endpoint đăng nhập và đăng ký
-                    auth.requestMatchers("/users/login", "/users/signin", "/users/signup", "/users/signup-owner", "/search","/views/**","restaurant/all")
+                    auth.requestMatchers("/users/login", "/users/signin", "/users/signup", "/users/signup-owner", "/search")
                             .permitAll();
 
                     // Các endpoint ViewController không cần xác thực
@@ -34,12 +34,12 @@ public class WebSecurityConfig {
                     auth.requestMatchers("/css/**", "/js/**", "/images/**").permitAll();
 
                     // Yêu cầu xác thực cho các endpoint này
-                    auth.requestMatchers("/users/update", "/users/profile", "/users/get-user-info","users/review",
+                    auth.requestMatchers("/users/update", "/users/profile", "/users/get-user-info",
                                     "/reservation/create", "/reservation/user/**","/users/logout"," /users/review/**")
                             .authenticated();
 
                     // Chỉ cho phép ROLE_ADMIN vào các endpoint của admin
-                    auth.requestMatchers("/admin", "/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/admin", "/admin/**").permitAll();
 
                     // Chỉ cho phép ROLE_OWNER vào các endpoint của chủ nhà hàng
                     auth.requestMatchers("/restaurant/**", "/reservation/restaurant/**").hasRole("OWNER");
