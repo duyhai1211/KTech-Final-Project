@@ -30,4 +30,12 @@ public class ViewController {
     public String userHome() {
         return "user/home"; // Điều hướng đến templates/user/index.html
     }
+
+    // Trang review cho người dùng
+    @GetMapping("/users/reviews")
+    public String userReviewPage() {
+        return "user/review"; // Điều hướng đến templates/user/review.html
+    }
+
+
 }

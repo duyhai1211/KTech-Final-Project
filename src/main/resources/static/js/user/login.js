@@ -40,3 +40,37 @@ document.querySelector('.signin-form').addEventListener('submit', async (event) 
         alert("Đã xảy ra lỗi trong quá trình đăng nhập.");
     }
 });
+
+// Hàm để thực hiện request có đính kèm JWT trong headers
+async function fetchWithAuth(url, options = {}) {
+    // Lấy JWT token từ localStorage
+    const token = localStorage.getItem("token");
+
+    // Thêm Authorization header nếu có token
+    if (token) {
+        options.headers = {
+            ...options.headers,
+            "Authorization": `Bearer ${token}`
+        };
+    }
+
+    return fetch(url, options);
+}
+
+// Sử dụng hàm fetchWithAuth cho các request yêu cầu xác thực
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        // Ví dụ: Lấy dữ liệu từ /admin sau khi trang đã tải
+        const response = await fetchWithAuth("/admin");
+        if (response.ok) {
+            // Xử lý dữ liệu từ response nếu cần
+            const data = await response.json();
+            console.log("Dữ liệu từ /admin:", data);
+        } else if (response.status === 403) {
+            alert("Bạn không có quyền truy cập vào trang này. Vui lòng đăng nhập.");
+            window.location.href = "/users/login"; // Chuyển đến trang đăng nhập nếu không có quyền
+        }
+    } catch (error) {
+        console.error("Đã xảy ra lỗi:", error);
+    }
+});

@@ -39,7 +39,7 @@ public class WebSecurityConfig {
                             .authenticated();
 
                     // Chỉ cho phép ROLE_ADMIN vào các endpoint của admin
-                    auth.requestMatchers("/admin", "/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/admin", "/admin/**").permitAll();
 
                     // Chỉ cho phép ROLE_OWNER vào các endpoint của chủ nhà hàng
                     auth.requestMatchers("/restaurant/**", "/reservation/restaurant/**").hasRole("OWNER");

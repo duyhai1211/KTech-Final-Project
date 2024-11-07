@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Menu Item</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Create New Menu Item</h1>
+    <form id="createMenuForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" required>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" required>
+
+        <button type="submit">Create</button>
+    </form>
+    <p id="responseMessage"></p>
+</div>
+<script src="/static/createMenu.js"></script>
+</body>
+</html>
