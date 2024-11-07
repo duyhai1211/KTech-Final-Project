@@ -31,10 +31,9 @@ public class ViewController {
         return "user/home"; // Điều hướng đến templates/user/index.html
     }
 
-    // Trang review cho người dùng
-    @GetMapping("/users/reviews")
-    public String userReviewPage() {
-        return "user/review"; // Điều hướng đến templates/user/review.html
+    @GetMapping("/user/myinfo")
+    public String myPage() {
+        return "/user/myinfo";
     }
 
 
