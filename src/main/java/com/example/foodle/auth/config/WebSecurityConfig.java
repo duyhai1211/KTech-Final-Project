@@ -23,7 +23,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     // Cho phép truy cập ẩn danh vào các endpoint đăng nhập và đăng ký
-                    auth.requestMatchers("/users/login", "/users/signin", "/users/signup", "/users/signup-owner", "/search")
+                    auth.requestMatchers("/users/login", "/users/signin", "/users/signup", "/users/signup-owner", "/search","restaurant/{restaurantId}/menu","restaurant/all")
                             .permitAll();
 
                     // Các endpoint ViewController không cần xác thực
