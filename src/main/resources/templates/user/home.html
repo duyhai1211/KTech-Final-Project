@@ -39,32 +39,18 @@
         </div>
     </nav>
 </header>
-
 <!-- Search bar -->
 <div class="search-bar">
-    <input type="text" id="restaurantName" placeholder="Nhập tên nhà hàng" />
-    <input type="text" id="location" placeholder="Nhập vị trí" />
-    <button onclick="searchRestaurants()">🔍 Tìm kiếm</button>
+    <input type="text" id="searchInput" placeholder="Search restaurants...">
+    <button id="searchButton">Search</button>
 </div>
 
-<!-- Main content -->
-<main>
-    <!-- Dynamic Restaurant List -->
-    <div class="restaurant-list">
-        <!-- Kết quả tìm kiếm nhà hàng sẽ được hiển thị ở đây -->
-    </div>
-
-    <!-- Pagination -->
-    <div class="pagination">
-        <a href="#" onclick="changePage(-1)">&laquo;</a>
-        <a href="#" class="active" onclick="showPage(1)">1</a>
-        <a href="#" onclick="showPage(2)">2</a>
-        <a href="#" onclick="showPage(3)">3</a>
-        <a href="#" onclick="showPage(4)">4</a>
-        <a href="#" onclick="showPage(5)">5</a>
-        <a href="#" onclick="changePage(1)">&raquo;</a>
-    </div>
+<!-- Restaurant list container -->
+<div class="restaurant-list" id="restaurantList">
+    <!-- Restaurant cards will be dynamically inserted here -->
+</div>
 </main>
+
 
 <footer style="
         background-color: #ff6a00;

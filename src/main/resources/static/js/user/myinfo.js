@@ -18,7 +18,7 @@ function navigateToHome() {
         .then(data => {
             if (data.success) {
                 // Nếu API trả về thành công, điều hướng về trang chủ
-                window.location.href = '/views/users';
+                window.location.href = '/views/users ';
             } else {
                 // Xử lý khi có lỗi từ server
                 alert('Có lỗi xảy ra, không thể điều hướng về trang chủ');
