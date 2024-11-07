@@ -9,29 +9,34 @@ function fetchReservations(page) {
   fetch(`${apiUrl}?page=${page}`)
     .then(response => response.json())
     .then(data => {
-      populateTable(data.content);
+      populateGrid(data.content);
       setupPagination(data.totalPages);
     })
     .catch(error => console.error('Error fetching reservations:', error));
 }
 
-function populateTable(reservations) {
-  const reservationList = document.getElementById("reservation-list");
-  reservationList.innerHTML = ""; // Clear previous data
-  reservations.forEach(reservation => {
-    const row = document.createElement("tr");
+function populateGrid(reservations) {
+  const reservationGrid = document.getElementById("reservation-grid");
+  reservationGrid.innerHTML = ""; // Clear previous data
 
-    row.innerHTML = `
-      <td>${reservation.id}</td>
-      <td>${reservation.restaurantId}</td>
-      <td>${reservation.date}</td>
-      <td>${reservation.status}</td>
-      <td class="actions">
+  reservations.forEach(reservation => {
+    const card = document.createElement("div");
+    card.className = "reservation-card";
+
+    card.innerHTML = `
+      <img src="${reservation.imageUrl}" alt="Restaurant Image">
+      <div class="reservation-info">
+        <h2>${reservation.restaurantName}</h2>
+        <p>Date: ${reservation.date}</p>
+        <p>Status: ${reservation.status}</p>
+      </div>
+      <div class="actions">
         <button class="complete-btn" onclick="completeReservation(${reservation.id})">Complete</button>
-        <button class="cancel-btn" onclick="cancelReservation(${reservation.id})">Cancel</button>
-      </td>
+        <button class="edit-btn" onclick="editReservation(${reservation.id})">Edit</button>
+        <button class="delete-btn" onclick="deleteReservation(${reservation.id})">Delete</button>
+      </div>
     `;
-    reservationList.appendChild(row);
+    reservationGrid.appendChild(card);
   });
 }
 
@@ -58,14 +63,25 @@ function completeReservation(reservationId) {
     .catch(error => console.error("Error completing reservation:", error));
 }
 
-function cancelReservation(reservationId) {
-  const reason = prompt("Please enter a reason for cancellation:");
-  fetch(`${apiUrl}/${reservationId}/cancel`, {
-    method: "POST",
+function editReservation(reservationId) {
+  const newRestaurantName = prompt("Enter new restaurant name:");
+  const newDate = prompt("Enter new reservation date:");
+  const newStatus = prompt("Enter new status:");
+
+  fetch(`${apiUrl}/${reservationId}`, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(reason)
+    body: JSON.stringify({ restaurantName: newRestaurantName, date: newDate, status: newStatus })
   })
     .then(response => response.json())
     .then(() => fetchReservations(currentPage))
-    .catch(error => console.error("Error canceling reservation:", error));
+    .catch(error => console.error("Error editing reservation:", error));
+}
+
+function deleteReservation(reservationId) {
+  if (confirm("Are you sure you want to delete this reservation?")) {
+    fetch(`${apiUrl}/${reservationId}`, { method: "DELETE" })
+      .then(() => fetchReservations(currentPage))
+      .catch(error => console.error("Error deleting reservation:", error));
+  }
 }
