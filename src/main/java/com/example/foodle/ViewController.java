@@ -2,8 +2,11 @@ package com.example.foodle;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("views")
 public class ViewController {
 
     @GetMapping
@@ -31,15 +34,24 @@ public class ViewController {
         return "user/home"; // Điều hướng đến templates/user/index.html
     }
 
-    @GetMapping("/user/myinfo")
+    @GetMapping("user/myinfo")
     public String myPage() {
-        return "/user/myinfo";
+        return "user/myinfo";
     }
 
     @GetMapping("/users/update")
     public String userUpdatePage() {
-        return "/user/update";
+        return "user/update";
     }
 
+    @GetMapping("restaurant/all")
+    public String restaurantPage() {
+        return "restaurant/restaurantAll";
+    }
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public String restaurantDetailPage(@PathVariable Long restaurantId) {
+        return "restaurant/restaurantDetail"; // Redirect to the restaurant detail page
+    }
 
 }

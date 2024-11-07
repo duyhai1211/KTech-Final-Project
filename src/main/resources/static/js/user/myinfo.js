@@ -1,132 +1,127 @@
-// Lấy JWT từ localStorage
-function getJwtToken() {
-    return localStorage.getItem('jwtToken');  // Hoặc sessionStorage nếu lưu trong đó
-}
-
-// Hàm điều hướng về trang chủ
-function navigateToHome() {
-    const token = getJwtToken();  // Lấy token từ localStorage
-
-    fetch('/api/checkHome', {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token,  // Thêm JWT vào header
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Nếu API trả về thành công, điều hướng về trang chủ
-                window.location.href = '/';
-            } else {
-                // Xử lý khi có lỗi từ server
-                alert('Có lỗi xảy ra, không thể điều hướng về trang chủ');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi khi gọi API:', error);
-            alert('Có lỗi xảy ra, không thể điều hướng về trang chủ');
-        });
-}
-
-// Sự kiện click vào Home để điều hướng về trang chủ
-document.querySelector('#home-link').addEventListener('click', function (event) {
-    event.preventDefault();  // Ngăn chặn hành động mặc định của liên kết
-    navigateToHome();  // Gọi hàm điều hướng
+document.addEventListener("DOMContentLoaded", function() {
+    fetchUserInfo();
 });
 
-// Sự kiện click vào biểu tượng người dùng để điều hướng đến trang thông tin người dùng
-document.querySelector('.user-profile .user-icon').addEventListener('click', function (event) {
-    event.preventDefault();  // Ngăn chặn hành động mặc định của liên kết
-    window.location.href = '/users/myinfo';  // Điều hướng đến trang thông tin người dùng
-});
+async function fetchUserInfo() {
+    const token = localStorage.getItem('token');
 
-// Tìm kiếm nhà hàng khi nhấn nút Tìm kiếm
-function searchRestaurants() {
-    const token = getJwtToken();  // Lấy token từ localStorage
-    const restaurantName = document.getElementById('restaurantName').value;
-    const location = document.getElementById('location').value;
-
-    fetch(`/api/searchRestaurants?name=${restaurantName}&location=${location}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token,  // Thêm JWT vào header
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Cập nhật giao diện với danh sách nhà hàng từ API
-                displayRestaurants(data.restaurants);
-            } else {
-                alert('Không tìm thấy nhà hàng nào.');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi khi tìm kiếm nhà hàng:', error);
-            alert('Có lỗi xảy ra trong quá trình tìm kiếm.');
-        });
-}
-
-// Hàm cập nhật giao diện với danh sách nhà hàng
-function displayRestaurants(restaurants) {
-    const restaurantList = document.querySelector('.restaurant-list');
-    restaurantList.innerHTML = '';  // Xóa danh sách nhà hàng hiện tại
-
-    restaurants.forEach(restaurant => {
-        const card = document.createElement('div');
-        card.classList.add('restaurant-card');
-        card.innerHTML = `
-            <img src="${restaurant.image}" alt="Restaurant Image">
-            <h3>${restaurant.name}</h3>
-            <p>${restaurant.cuisine} • Reviews: ${restaurant.reviews} ★★★★★</p>
-            <p>${restaurant.location}</p>
-            <p>${restaurant.phone}</p>
-        `;
-        restaurantList.appendChild(card);
-    });
-}
-
-// Gán sự kiện click cho nút tìm kiếm
-document.querySelector('button').addEventListener('click', searchRestaurants);
-
-// Hàm thay đổi trang
-function changePage(pageNumber) {
-    const token = getJwtToken();  // Lấy token từ localStorage
-
-    fetch(`/api/getRestaurants?page=${pageNumber}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token,  // Thêm JWT vào header
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                displayRestaurants(data.restaurants);  // Hiển thị các nhà hàng của trang hiện tại
-            } else {
-                alert('Không thể tải danh sách nhà hàng.');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi khi thay đổi trang:', error);
-            alert('Có lỗi xảy ra khi thay đổi trang.');
-        });
-}
-
-// Sự kiện điều hướng qua các trang (pagination)
-document.querySelector('.pagination').addEventListener('click', function(event) {
-    const pageLink = event.target;
-    if (pageLink.tagName === 'A') {
-        const pageNumber = parseInt(pageLink.textContent, 10);
-        changePage(pageNumber);  // Gọi hàm thay đổi trang
+    if (!token) {
+        window.location.href = "/views/users/login"; // Absolute path for redirection
+        return;
     }
-});
+
+    try {
+        const response = await fetch('/users/get-user-info', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('user-nickname').textContent = data.nickname || "User";
+            document.getElementById('user-email').textContent = data.email;
+            document.getElementById('user-phone').textContent = data.phone;
+            document.getElementById('user-avatar').src = data.profileImg || "https://via.placeholder.com/50";
+            document.getElementById('user-greeting').textContent = `Hello, ${data.nickname || "User"}`;
+        } else if (response.status === 401) {
+            alert("Your session has expired. Please log in again.");
+            localStorage.removeItem('jwtToken');
+            window.location.href = "/views/users/login"; // Absolute path
+        } else {
+            console.error("Failed to fetch user info.");
+        }
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+    }
+}
+
+function redirectToEditPage() {
+    window.location.href = "/views/users/editInfo.html"; // Adjusted absolute path
+}
+
+// Other functions remain the same, with adjusted paths if needed
 
 
-function redirectToUserUpdatePage() {
-    window.location.href = "/user/update";  // Đường dẫn đến trang cập nhật thông tin người dùng
+// Placeholder function to load all reservations dynamically
+function loadAllReservations() {
+    // Fetch and display all reservation data
+    console.log("Loading all reservations...");
+    // Add your fetch code here for reservations if required
+}
+
+// Placeholder function to load all reviews dynamically
+function loadAllReviews() {
+    // Fetch and display all review data
+    console.log("Loading all reviews...");
+    // Add your fetch code here for reviews if required
+}
+
+// Update user information using the API
+async function updateUserInfo() {
+    const nickname = document.getElementById('nickname').value;
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+
+    const token = localStorage.getItem('jwtToken');
+
+    try {
+        const response = await fetch('/users/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ nickname, name, age, phone, email })
+        });
+
+        if (response.ok) {
+            alert('User info updated successfully');
+            fetchUserInfo(); // Refresh displayed user info
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.error('Error updating user info:', error);
+    }
+}
+
+// Function to upload profile image
+async function uploadProfileImage() {
+    const fileInput = document.getElementById('profile-image');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert('Please select an image to upload.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const token = localStorage.getItem('jwtToken');
+
+    try {
+        const response = await fetch('/users/profile', {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Profile image uploaded successfully');
+            fetchUserInfo(); // Refresh displayed profile image
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.error('Error uploading profile image:', error);
+    }
 }

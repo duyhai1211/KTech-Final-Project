@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -29,6 +32,13 @@ public class MenuService {
         checkResStatus(resId);
         return menuRepository.findAllByRestaurantId(resId, pageable)
                 .map(MenuDto::fromEntity);
+    }
+    public List<MenuDto> readAll(Long resId) {
+        return menuRepository.findAllByRestaurantId(resId)
+                .stream()
+                .map(MenuDto::fromEntity)
+                .collect(Collectors.toList());
+
     }
     public MenuDto readOne(Long resId, Long menuId) {
         checkResStatus(resId);

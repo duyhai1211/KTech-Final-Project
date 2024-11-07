@@ -165,6 +165,7 @@ public class RestaurantService {
         return menuRepo.findAllByRestaurantId(restaurant.getId(), pageable)
                 .map(MenuDto::fromEntity);
     }
+
     public MenuDto readOne(Long menuId) {
         Menu item = getMenuCheckOwner(menuId);
         return MenuDto.fromEntity(item);
