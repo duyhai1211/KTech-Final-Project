@@ -37,5 +37,8 @@ public class ViewController {
         return "user/review"; // Điều hướng đến templates/user/review.html
     }
 
-
+    @GetMapping ("/users/signup-owner")
+    public String ownerSignupPage() {
+        return "user/signupOwner";
+    }
 }
