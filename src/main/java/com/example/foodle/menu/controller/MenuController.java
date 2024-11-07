@@ -11,21 +11,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("restaurant/{restaurantId}/menu")
+
 public class MenuController {
     private final MenuService menuService;
-    public Page<MenuDto> readPage(
-            @PathVariable("shopId")
-            Long resId,
-            Pageable pageable
-    ) {
-        return menuService.readPage(resId, pageable);
+//    @GetMapping("restaurant/{restaurantId}/menu")
+//    public Page<MenuDto> readPage(
+//            @PathVariable("restaurantId")
+//            Long resId,
+//            Pageable pageable
+//    ) {
+//        return menuService.readPage(resId, pageable);
+//    }
+
+    @GetMapping("restaurant/{restaurantId}/menu")
+    public List<MenuDto> getMenus(@PathVariable("restaurantId") Long resId) {
+        return menuService.readAll(resId);
     }
 
-    @GetMapping("{menuId}")
+
+    @GetMapping("restaurant/{restaurantId}/menu/{menuId}")
     public MenuDto readOne(
             @PathVariable("restaurantId")
             Long resId,

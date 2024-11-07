@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Details</title>
+
+  <!-- Reset and Styles -->
+  <link rel="stylesheet" href="/static/css/user/reset.css">
+  <link rel="stylesheet" href="/static/css/restaurant/detail.css">
+
+  <!-- Font and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+  <nav>
+    <a href="/views/restaurant/all" class="back-link">← Back to All Restaurants</a>
+  </nav>
+  <h1 id="restaurant-name" class="restaurant-name">Loading...</h1>
+</header>
+
+<main class="main-container">
+  <!-- Restaurant Details Section -->
+  <section id="restaurant-details" class="details-section">
+    <img id="restaurant-image" class="restaurant-image" src="/static/img/default-restaurant.png" alt="Restaurant Image">
+    <div class="restaurant-info">
+      <p><strong>Description:</strong> <span id="restaurant-description">Loading...</span></p>
+      <p><strong>Address:</strong> <span id="restaurant-address">Loading...</span></p>
+      <p><strong>Phone:</strong> <span id="restaurant-phone">Loading...</span></p>
+      <p><strong>Category:</strong> <span id="restaurant-category">Loading...</span></p>
+      <p><strong>Status:</strong> <span id="restaurant-status">Loading...</span></p>
+      <p><strong>Opening Hours:</strong> <span id="restaurant-open-time">N/A</span> - <span id="restaurant-close-time">N/A</span></p>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu-section" class="menu-section">
+    <h2>Menu</h2>
+    <div id="menu-list" class="menu-list">Loading menu items...</div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="review-section" class="review-section">
+    <h2>Reviews</h2>
+    <div id="reviews-list" class="reviews-list">Loading reviews...</div>
+  </section>
+
+  <!-- Reservation Button -->
+  <div class="reservation">
+    <button class="reserve-button" onclick="reserveTable()">Make a Reservation</button>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2024 Avengers Assemble. All Rights Reserved.</p>
+</footer>
+
+<!-- JavaScript to Fetch Data and Populate Page -->
+<script src="/static/js/restaurant/restaurantDetail.js"></script>
+</body>
+</html>

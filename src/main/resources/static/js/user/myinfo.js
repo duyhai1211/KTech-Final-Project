@@ -3,9 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function fetchUserInfo() {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('token');
 
-
+    if (!token) {
+        window.location.href = "/views/users/login"; // Absolute path for redirection
+        return;
+    }
 
     try {
         const response = await fetch('/users/get-user-info', {

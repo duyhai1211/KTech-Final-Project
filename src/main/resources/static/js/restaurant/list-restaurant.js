@@ -1,41 +1,49 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Fetch and display all restaurants on page load
+document.addEventListener("DOMContentLoaded", function() {
     fetchAllRestaurants();
 });
 
-// Function to fetch all restaurants from the API
-function fetchAllRestaurants() {
-    fetch("/restaurant/all")
-        .then(response => response.json())
-        .then(data => {
-            const restaurantList = document.getElementById("restaurantList");
-            restaurantList.innerHTML = ""; // Clear any existing content
-
-            if (data.content && data.content.length > 0) {
-                // Display each restaurant using the API data
-                data.content.forEach(restaurant => {
-                    const card = createRestaurantCard(restaurant);
-                    restaurantList.appendChild(card);
-                });
-            } else {
-                // Show message if no restaurants found
-                restaurantList.innerHTML = "<p>No restaurants found.</p>";
-            }
-        })
-        .catch(error => console.error("Error fetching restaurants:", error));
+async function fetchAllRestaurants() {
+    try {
+        const response = await fetch('/restaurant/all');
+        if (response.ok) {
+            const data = await response.json();
+            displayRestaurants(data.content);
+        } else {
+            console.error("Failed to fetch restaurant list.");
+            document.getElementById('restaurantList').textContent = "No restaurants found.";
+        }
+    } catch (error) {
+        console.error('Error fetching restaurant list:', error);
+    }
 }
 
-// Function to create and return a restaurant card element
-function createRestaurantCard(restaurant) {
-    const card = document.createElement("div");
-    card.className = "restaurant-card";
-    card.innerHTML = `
-        <img src="${restaurant.profileImage || 'default.jpg'}" alt="Restaurant Image">
-        <h3>${restaurant.name}</h3>
-        <p>${restaurant.description}</p>
-        <p>Address: ${restaurant.address}</p>
-        <p>Phone: ${restaurant.phoneNumber}</p>
-        <p>Status: ${restaurant.status}</p>
-    `;
-    return card;
+function displayRestaurants(restaurants) {
+    const restaurantList = document.getElementById('restaurantList');
+    restaurantList.innerHTML = ''; // Clear existing content
+
+    if (restaurants.length === 0) {
+        restaurantList.textContent = "No restaurants available.";
+        return;
+    }
+
+    restaurants.forEach(restaurant => {
+        const card = document.createElement('div');
+        card.classList.add('restaurant-card');
+
+        // Set up the card as a clickable element to navigate to the detail page
+        card.onclick = function() {
+            window.location.href = `/views/restaurant/${restaurant.id}`;
+        };
+
+        card.innerHTML = `
+            <img src="${restaurant.profileImage || '/static/img/default-restaurant.png'}" alt="${restaurant.name}">
+            <h3>${restaurant.name}</h3>
+            <p>${restaurant.description}</p>
+            <p><strong>Address:</strong> ${restaurant.address}</p>
+            <p><strong>Phone:</strong> ${restaurant.phoneNumber}</p>
+            <p><strong>Status:</strong> ${restaurant.status}</p>
+        `;
+
+        restaurantList.appendChild(card);
+    });
 }
