@@ -94,7 +94,7 @@ body {
     border-radius: 5px;
     border: none;
     background-color: #ffffff;
-    color: white;
+    color: black;
 }
 
 .input-group .icon {
@@ -130,7 +130,7 @@ body {
 }
 
 .btn:hover {
-    background-color: #ffffff;
+    background-color: #e8406e;
 }
 
 .signin-text {
