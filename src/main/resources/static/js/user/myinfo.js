@@ -125,3 +125,8 @@ document.querySelector('.pagination').addEventListener('click', function(event) 
         changePage(pageNumber);  // Gọi hàm thay đổi trang
     }
 });
+
+
+function redirectToUserUpdatePage() {
+    window.location.href = "/user/update";  // Đường dẫn đến trang cập nhật thông tin người dùng
+}

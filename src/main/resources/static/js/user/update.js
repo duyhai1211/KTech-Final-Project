@@ -1,5 +1,5 @@
 const jwt = localStorage.getItem("token");
-if (!jwt) location.href = "/users/login";
+if (!jwt) location.href = "/views/login";
 
 const nicknameInput = document.getElementById("nickname-input");
 const nameInput = document.getElementById("name-input");
@@ -22,6 +22,7 @@ const setBaseData = (userInfo) => {
     }
 }
 
+
 fetch("/users/get-user-info", {
     headers: {
         "Authorization": `Bearer ${jwt}`,
@@ -31,7 +32,7 @@ fetch("/users/get-user-info", {
         loggedIn = response.ok;
         if (!loggedIn) {
             localStorage.removeItem("token");
-            location.href = "/users/login";
+            location.href = "/views/login";
         }
         return response.json();
     })
@@ -57,7 +58,7 @@ updateForm.addEventListener("submit", e => {
         .then(response => {
             if (response.ok) location.reload();
             else if (response.status === 403)
-                location.href = "/users/login";
+                location.href = "/views/login";
             else alert(response.status);
         });
 });
