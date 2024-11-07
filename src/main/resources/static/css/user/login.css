@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #4e0e57, #2d1c6d);
+    background: linear-gradient(to right, #eca674, #f5b486);
     color: white;
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@ body {
 
 .welcome-section {
     flex: 1;
-    background-color: #4a0659;
+    background-color: #f87a20;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,7 +57,7 @@ body {
 
 .signin-section {
     flex: 1;
-    background-color: #2d1c6d;
+    background-color: #e48541;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -92,7 +92,7 @@ body {
     padding: 12px 40px 12px 20px;
     border-radius: 5px;
     border: none;
-    background-color: #3f2970;
+    background-color: white;
     color: white;
 }
 
@@ -105,7 +105,6 @@ body {
 
 .checkbox-group {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -120,6 +119,7 @@ body {
 
 .forgot-password {
     font-size: 14px;
+    margin-left: 250px;
     color: #ff4b79;
     text-decoration: none;
 }
@@ -129,7 +129,7 @@ body {
 }
 
 .btn {
-    background-color: #e77793;
+    background-color: #dc620b;
     border: none;
     padding: 12px;
     border-radius: 5px;

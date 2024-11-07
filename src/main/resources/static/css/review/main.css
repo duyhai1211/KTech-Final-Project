@@ -1,75 +1,93 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    background-color: #f3d3d3;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
 }
 
 .container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 20px;
 }
 
-h1, h2 {
-  color: #333;
-  text-align: center;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.review-form, .review-list {
-  margin-top: 20px;
+.header-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+.sort-dropdown {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }
 
-input, textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.sort-dropdown select {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    margin-left: 5px;
 }
 
-button {
-  padding: 10px 15px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.review-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    position: relative;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.review-card h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
 }
 
-th, td {
-  padding: 12px;
-  text-align: center;
-  border: 1px solid #ddd;
+.review-card p {
+    font-size: 0.9em;
+    color: #555;
+    margin: 5px 0;
 }
 
-.actions button {
-  margin: 0 5px;
-  padding: 8px;
-  font-size: 12px;
+.review-date {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 5px;
 }
 
-.complete-btn {
-  background-color: #28a745;
+.review-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
-.cancel-btn, .delete-btn {
-  background-color: #dc3545;
+.edit-button, .delete-button {
+    color: #ff6666;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.edit-button:hover, .delete-button:hover {
+    text-decoration: underline;
 }

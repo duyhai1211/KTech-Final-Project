@@ -36,11 +36,10 @@ public class ViewController {
         return "/user/myinfo";
     }
 
-    @GetMapping("users/update")
+    @GetMapping("/users/update")
     public String userUpdatePage() {
-        return "user/update";
+        return "/user/update";
     }
-
 
 
 }
