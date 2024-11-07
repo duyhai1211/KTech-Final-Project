@@ -1,5 +1,5 @@
 // URL API endpoint
-const url = "/views/users/signup-owner";
+const url = "/users/signup-owner";
 
 // Lắng nghe sự kiện submit của form
 document.querySelector('.signup-form').addEventListener('submit', async (event) => {

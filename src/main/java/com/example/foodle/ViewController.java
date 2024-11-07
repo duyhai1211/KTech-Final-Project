@@ -54,4 +54,9 @@ public class ViewController {
         return "restaurant/restaurantDetail"; // Redirect to the restaurant detail page
     }
 
+    @GetMapping("/users/signup-owner")
+    public String signupOwner(){
+        return "user/signupOwner";
+    }
+
 }
