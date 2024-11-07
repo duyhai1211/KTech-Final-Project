@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
-    @GetMapping("/users")
-    public String userHome() {
+    @GetMapping
+    public String userMain() {
         return "user/main"; // Điều hướng đến templates/user/index.html
     }
 
@@ -26,6 +26,8 @@ public class ViewController {
         return "admin/admin"; // Điều hướng đến templates/user/index.html
     }
 
-//    @GetMapping("/restaurant")
-//    public String
+    @GetMapping("/users")
+    public String userHome() {
+        return "user/home"; // Điều hướng đến templates/user/index.html
+    }
 }
