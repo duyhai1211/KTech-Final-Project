@@ -25,18 +25,28 @@ function renderRequests(requests) {
     container.innerHTML = '';
     requests.forEach(request => {
         const requestElement = document.createElement('div');
-        requestElement.classList.add('request');
+        requestElement.classList.add('request', 'mb-3', 'p-3', 'border', 'rounded');
         requestElement.innerHTML = `
-            <h3>Yêu cầu ID: ${request.id}</h3>
-            <p>Tên nhà hàng: ${request.restaurantName}</p>
-            <p>Địa chỉ: ${request.address}</p>
-            <button onclick="viewDetails(${request.id})">Xem chi tiết</button>
-            <button onclick="approveRequest(${request.id})">Phê duyệt</button>
-            <button onclick="rejectRequest(${request.id})">Từ chối</button>
+            <h5>Yêu cầu ID: ${request.id}</h5>
+            <p><strong>Tên nhà hàng:</strong> ${request.restaurant.name}</p>
+            <p><strong>Mô tả:</strong> ${request.restaurant.description}</p>
+            <p><strong>Địa chỉ:</strong> ${request.restaurant.address}</p>
+            <p><strong>Số điện thoại:</strong> ${request.restaurant.phoneNumber}</p>
+            <p><strong>Sức chứa:</strong> ${request.restaurant.capacity}</p>
+            <p><strong>Danh mục:</strong> ${request.restaurant.category}</p>
+            <p><strong>Trạng thái:</strong> ${request.restaurant.status}</p>
+            ${request.restaurant.closeReason ? `<p><strong>Lý do đóng:</strong> ${request.restaurant.closeReason}</p>` : ''}
+            <p><strong>Lý do từ chối:</strong> ${request.reason}</p>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-info" onclick="viewDetails(${request.id})">Xem chi tiết</button>
+                <button class="btn btn-success" onclick="approveRequest(${request.id})">Phê duyệt</button>
+                <button class="btn btn-danger" onclick="rejectRequest(${request.id})">Từ chối</button>
+            </div>
         `;
         container.appendChild(requestElement);
     });
 }
+
 
 async function viewDetails(requestId) {
     try {
@@ -50,11 +60,28 @@ async function viewDetails(requestId) {
             throw new Error('Failed to fetch request details');
         }
         const request = await response.json();
-        alert(`Chi tiết yêu cầu:\n\nTên nhà hàng: ${request.restaurantName}\nĐịa chỉ: ${request.address}\nNgười yêu cầu: ${request.requesterName}`);
+
+        // Điền thông tin chi tiết vào modal
+        document.getElementById('modal-body-content').innerHTML = `
+            <p><strong>ID Yêu cầu:</strong> ${request.id}</p>
+            <p><strong>Tên nhà hàng:</strong> ${request.restaurant.name}</p>
+            <p><strong>Mô tả:</strong> ${request.restaurant.description}</p>
+            <p><strong>Địa chỉ:</strong> ${request.restaurant.address}</p>
+            <p><strong>Số điện thoại:</strong> ${request.restaurant.phoneNumber}</p>
+            <p><strong>Sức chứa:</strong> ${request.restaurant.capacity}</p>
+            <p><strong>Danh mục:</strong> ${request.restaurant.category}</p>
+            <p><strong>Trạng thái:</strong> ${request.restaurant.status}</p>
+            ${request.restaurant.closeReason ? `<p><strong>Lý do đóng:</strong> ${request.restaurant.closeReason}</p>` : ''}
+            <p><strong>Lý do yêu cầu mở:</strong> ${request.reason}</p>
+        `;
+
+        // Hiển thị modal
+        $('#detailsModal').modal('show');
     } catch (error) {
         console.error('Error fetching request details:', error);
     }
 }
+
 
 async function approveRequest(requestId) {
     try {
@@ -88,7 +115,7 @@ async function rejectRequest(requestId) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(reason)
+            body: JSON.stringify({ reason: reason }) // Đặt lý do từ chối vào object JSON
         });
         if (!response.ok) {
             throw new Error('Failed to reject request');
