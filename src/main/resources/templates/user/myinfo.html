@@ -12,14 +12,15 @@
     <!-- Header Section -->
     <div class="header">
         <div class="user-info">
-            <img id="user-avatar" src="https://via.placeholder.com/50" alt="User avatar">
+            <img id="user-avatar" src="https://via.placeholder.com/50" alt="User avatar" class="img-thumbnail">
+
             <div>
                 <p id="user-greeting">Hello, <span id="user-nickname"></span></p>
                 <p>이메일 : <span id="user-email"></span></p>
                 <p>전화번호 : <span id="user-phone"></span></p>
             </div>
         </div>
-        <button class="btn btn-primary" onclick="redirectToEditPage()">정보 수정</button>
+        <button class="btn btn-primary" onclick="redirectToUserUpdatePage()">정보 수정</button>
     </div>
 
     <!-- Reservation Section -->
@@ -28,7 +29,7 @@
         <div id="reservation-list" class="reservation-list">
             <!-- Dynamic reservation items will be populated here -->
         </div>
-        <button class="see-all" onclick="loadAllReservations()">전체 보기</button>
+        <a href="/reservation/user-reservations" class="see-all">전체 보기</a>
     </div>
 
     <!-- Review Section -->

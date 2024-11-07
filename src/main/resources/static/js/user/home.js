@@ -45,3 +45,58 @@ function createRestaurantCard(restaurant) {
     `;
     return card;
 }
+
+
+// Hàm chuyển hướng đến trang home.html
+function redirectToHome() {
+    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    if (token) {
+        // Nếu có token, có thể làm gì đó với nó nếu cần
+        console.log("Chuyển hướng đến home với token:", token);
+    }
+    // Chuyển hướng đến home.html
+    window.location.href = '/views/users/home';
+}
+
+// Lắng nghe sự kiện click cho liên kết Home
+document.addEventListener('DOMContentLoaded', function() {
+    const homeLink = document.querySelector('a[href="/views/users"]'); // Tìm liên kết Home
+    if (homeLink) {
+        homeLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+            redirectToHome(); // Gọi hàm để chuyển hướng
+        });
+    } else {
+        console.error("Không tìm thấy liên kết Home");
+    }
+});
+
+// myrestaurant.js
+
+
+// Hàm chuyển hướng đến trang home.html
+function redirectToHome() {
+    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    if (token) {
+        // Nếu có token, có thể làm gì đó với nó nếu cần
+        console.log("Chuyển hướng đến home với token:", token);
+    }
+    // Chuyển hướng đến home.html
+    window.location.href = '/views/myrestaurant';
+}
+
+// Lắng nghe sự kiện click cho liên kết Home
+document.addEventListener('DOMContentLoaded', function() {
+    const homeLink = document.querySelector('a[href="/views/myrestaurant"]'); // Tìm liên kết Home
+    if (homeLink) {
+        homeLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+            redirectToHome(); // Gọi hàm để chuyển hướng
+        });
+    } else {
+        console.error("Không tìm thấy liên kết MyRestaurant");
+    }
+});
+
+
+

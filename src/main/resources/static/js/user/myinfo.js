@@ -1,127 +1,133 @@
-document.addEventListener("DOMContentLoaded", function() {
-    fetchUserInfo();
-});
+// Hàm để lấy JWT token từ localStorage
+function getJwtToken() {
+    return localStorage.getItem('token'); // Hoặc sessionStorage nếu lưu trong đó
+}
 
-async function fetchUserInfo() {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-        window.location.href = "/views/users/login"; // Absolute path for redirection
-        return;
-    }
-
+// Hàm để lấy thông tin người dùng từ API và hiển thị lên trang
+async function loadUserInfo() {
+    const token = getJwtToken(); // Lấy token từ localStorage
     try {
         const response = await fetch('/users/get-user-info', {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`, // Thêm JWT vào header
                 'Content-Type': 'application/json'
             }
         });
 
         if (response.ok) {
             const data = await response.json();
-            document.getElementById('user-nickname').textContent = data.nickname || "User";
-            document.getElementById('user-email').textContent = data.email;
-            document.getElementById('user-phone').textContent = data.phone;
-            document.getElementById('user-avatar').src = data.profileImg || "https://via.placeholder.com/50";
-            document.getElementById('user-greeting').textContent = `Hello, ${data.nickname || "User"}`;
-        } else if (response.status === 401) {
-            alert("Your session has expired. Please log in again.");
-            localStorage.removeItem('jwtToken');
-            window.location.href = "/views/users/login"; // Absolute path
+            setUserInfo(data); // Gọi hàm để thiết lập thông tin người dùng
         } else {
-            console.error("Failed to fetch user info.");
+            console.error('Không thể tải thông tin người dùng');
+            alert('Bạn cần đăng nhập để truy cập thông tin này.');
+            window.location.href = '/users/login'; // Chuyển hướng đến trang đăng nhập nếu không có quyền
         }
     } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error('Lỗi khi tải thông tin người dùng:', error);
     }
 }
 
-function redirectToEditPage() {
-    window.location.href = "/views/users/editInfo.html"; // Adjusted absolute path
+// Hàm để thiết lập thông tin người dùng trên trang
+function setUserInfo(data) {
+    document.getElementById('user-nickname').textContent = data.nickname || '[Nickname]';
+    document.getElementById('user-email').textContent = data.email || 'user@example.com';
+    document.getElementById('user-phone').textContent = data.phone || '010-1234-5678';
+    // document.getElementById('user-avatar').src = data.avatar || '';
+
+    // Cập nhật hình đại diện
+    const userAvatar = document.getElementById('user-avatar');
+    if (data.avatar) {
+        userAvatar.src = data.avatar; // Nếu có URL hình ảnh, cập nhật src
+        userAvatar.alt = `${data.nickname}'s avatar`; // Cập nhật alt cho hình ảnh
+    } else {
+        userAvatar.src = 'https://via.placeholder.com/50'; // Hình ảnh mặc định nếu không có
+        userAvatar.alt = 'Default avatar'; // Cập nhật alt cho hình ảnh mặc định
+    }
 }
 
-// Other functions remain the same, with adjusted paths if needed
-
-
-// Placeholder function to load all reservations dynamically
-function loadAllReservations() {
-    // Fetch and display all reservation data
-    console.log("Loading all reservations...");
-    // Add your fetch code here for reservations if required
+// Hàm điều hướng đến trang cập nhật thông tin người dùng
+function redirectToUserUpdatePage() {
+    console.log("Chuyển hướng đến /users/update");
+    window.location.href = "/views/users/update"; // Điều hướng đến trang cập nhật thông tin
 }
 
-// Placeholder function to load all reviews dynamically
-function loadAllReviews() {
-    // Fetch and display all review data
-    console.log("Loading all reviews...");
-    // Add your fetch code here for reviews if required
-}
+// Gán sự kiện click cho nút "정보 수정"
+document.addEventListener('DOMContentLoaded', function() {
+    const updateButton = document.querySelector('.action-btn'); // Tìm nút với lớp 'action-btn'
+    if (updateButton) {
+        updateButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của <a>
+            redirectToUserUpdatePage(); // Gọi hàm để chuyển hướng
+        });
+    } else {
+        console.error("Không tìm thấy nút với lớp 'action-btn'");
+    }
+});
 
-// Update user information using the API
-async function updateUserInfo() {
-    const nickname = document.getElementById('nickname').value;
-    const name = document.getElementById('name').value;
-    const age = document.getElementById('age').value;
-    const phone = document.getElementById('phone').value;
-    const email = document.getElementById('email').value;
-
-    const token = localStorage.getItem('jwtToken');
-
+// Hàm để tải danh sách đặt chỗ của người dùng từ API
+async function loadUserReservations(page = 0, size = 10) {
+    const token = getJwtToken(); // Lấy token từ localStorage
     try {
-        const response = await fetch('/users/update', {
-            method: 'PUT',
+        const response = await fetch(`/reservation/user?page=${page}&size=${size}`, {
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ nickname, name, age, phone, email })
+                'Authorization': `Bearer ${token}`, // Thêm JWT vào header
+                'Content-Type': 'application/json'
+            }
         });
 
         if (response.ok) {
-            alert('User info updated successfully');
-            fetchUserInfo(); // Refresh displayed user info
+            const data = await response.json();
+            displayReservations(data.content); // Hiển thị danh sách đặt chỗ
+            setupPagination(data.totalPages, page); // Thiết lập phân trang
         } else {
-            const errorData = await response.json();
-            alert(`Error: ${errorData.message}`);
+            console.error('Không thể tải danh sách đặt chỗ');
+            alert('Có lỗi xảy ra khi tải danh sách đặt chỗ.');
         }
     } catch (error) {
-        console.error('Error updating user info:', error);
+        console.error('Lỗi khi tải danh sách đặt chỗ:', error);
     }
 }
 
-// Function to upload profile image
-async function uploadProfileImage() {
-    const fileInput = document.getElementById('profile-image');
-    const file = fileInput.files[0];
+// Hàm hiển thị danh sách đặt chỗ
+function displayReservations(reservations) {
+    const reservationList = document.getElementById('reservation-list');
+    reservationList.innerHTML = ''; // Xóa danh sách cũ
 
-    if (!file) {
-        alert('Please select an image to upload.');
-        return;
-    }
+    reservations.forEach(reservation => {
+        const item = document.createElement('div');
+        item.classList.add('reservation-item');
+        item.innerHTML = `
+            <span>${reservation.name}</span>
+            <span>${reservation.date} ${reservation.time}</span>
+            <span class="status">${reservation.status}</span>
+        `;
+        reservationList.appendChild(item);
+    });
+}
 
-    const formData = new FormData();
-    formData.append('file', file);
+// Hàm thiết lập phân trang
+function setupPagination(totalPages, currentPage) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = ''; // Xóa phân trang cũ
 
-    const token = localStorage.getItem('jwtToken');
-
-    try {
-        const response = await fetch('/users/profile', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            alert('Profile image uploaded successfully');
-            fetchUserInfo(); // Refresh displayed profile image
-        } else {
-            const errorData = await response.json();
-            alert(`Error: ${errorData.message}`);
+    for (let i = 0; i < totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i + 1;
+        pageButton.classList.add('page-btn');
+        if (i === currentPage) {
+            pageButton.classList.add('active');
         }
-    } catch (error) {
-        console.error('Error uploading profile image:', error);
+        pageButton.addEventListener('click', () => loadUserReservations(i)); // Gọi hàm tải danh sách đặt chỗ
+        pagination.appendChild(pageButton);
     }
 }
+
+// Gọi hàm loadUserInfo và loadUserReservations khi trang được tải
+document.addEventListener('DOMContentLoaded', function() {
+    loadUserInfo(); // Tải thông tin người dùng
+    loadUserReservations(); // Tải danh sách đặt chỗ
+});
+
+
+
+
