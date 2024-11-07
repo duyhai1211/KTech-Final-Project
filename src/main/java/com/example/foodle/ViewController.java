@@ -29,9 +29,20 @@ public class ViewController {
         return "admin/admin"; // Điều hướng đến templates/user/index.html
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        return "user/logout";
+    }
+
+
     @GetMapping("/users")
     public String userHome() {
         return "user/home"; // Điều hướng đến templates/user/index.html
+    }
+
+    @GetMapping("/users/home") // Thêm endpoint cho home
+    public String userHomePage() {
+        return "user/home"; // Điều hướng đến templates/user/home.html
     }
 
     @GetMapping("user/myinfo")
@@ -58,5 +69,17 @@ public class ViewController {
     public String signupOwner(){
         return "user/signupOwner";
     }
+
+    @GetMapping("/myrestaurant")
+    public String myRestaurant(){
+        return "restaurant/myRestaurant";
+    }
+
+
+    @GetMapping("/requestOpen")
+    public String requestOpen(){
+        return "restaurant/requestOpen";
+    }
+
 
 }

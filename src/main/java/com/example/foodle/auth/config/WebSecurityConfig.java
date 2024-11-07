@@ -27,7 +27,7 @@ public class WebSecurityConfig {
                             .permitAll();
 
                     // Các endpoint ViewController không cần xác thực
-                    auth.requestMatchers("/users", "/users/login", "/users/signup", "/users/orders")
+                    auth.requestMatchers("/users", "/users/login", "/users/signup", "/users/orders","users/logout")
                             .permitAll();
 
                     // Cho phép truy cập công khai vào các file tĩnh trong thư mục /static/css, /static/js, và /static/images
