@@ -21,6 +21,11 @@ public class ViewController {
         return "user/signup"; // Điều hướng đến templates/user/signup.html
     }
 
-    @GetMapping("/restaurant")
-    public String
+    @GetMapping("/admin")
+    public String adminHome() {
+        return "admin/admin"; // Điều hướng đến templates/user/index.html
+    }
+
+//    @GetMapping("/restaurant")
+//    public String
 }

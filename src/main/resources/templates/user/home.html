@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Avengers Assemble</title>
+
+        <!-- Reset CSS -->
+        <link rel="stylesheet" href="/static/css/user/reset.css" />
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="/static/css/user/home.css" />
+
+        <!-- Embed Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <!-- Logo -->
+                <a href="#"><img src="../../static/img/logo/Avengers1.svg" alt="Avengers Assemble" /></a>
+                <!-- Navigation -->
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <!-- User Profile Icon and Name -->
+                <div class="user-profile">
+                    <a href="/users/profile" class="user-icon" title="Thông tin của tôi">
+                        <!-- Biểu tượng hình người -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M13.468 12.37C12.758 11.226 11.464 10.5 8 10.5s-4.758.726-5.468 1.87A6.962 6.962 0 0 0 8 15a6.963 6.963 0 0 0 5.468-2.63z"/>
+                            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1z"/>
+                        </svg>
+                        <span class="user-name">Người Dùng</span> <!-- Tên người dùng -->
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+            <input type="text" id="restaurantName" placeholder="Nhập tên nhà hàng">
+            <input type="text" id="location" placeholder="Nhập vị trí">
+            <button onclick="searchRestaurants()">🔍 Tìm kiếm</button>
+        </div>
+
+        <main>
+            <div class="carousel-container">
+                <div class="restaurant-list">
+                    <!-- Thẻ nhà hàng -->
+                    <div class="restaurant-card">
+                        <img src="1.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="2.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="3.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="1.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="2.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="3.jpg" alt="Restaurant Image">
+                        <h3>카도야 (역삼점)</h3>
+                        <p>일식 • 리뷰 9 ★★★★★</p>
+                        <p>서울 강남구 역삼동 601-26</p>
+                        <p>02-557-7854</p>
+                    </div>
+
+
+
+
+
+
+                    <!-- Thêm các thẻ nhà hàng khác -->
+                </div>
+            </div>
+
+
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" onclick="changePage(-1)">&laquo;</a>
+                <a href="#" class="active" onclick="showPage(1)">1</a>
+                <a href="#" onclick="showPage(2)">2</a>
+                <a href="#" onclick="showPage(3)">3</a>
+                <a href="#" onclick="showPage(4)">4</a>
+                <a href="#" onclick="showPage(5)">5</a>
+                <a href="#" onclick="changePage(1)">&raquo;</a>
+            </div>
+        </main>
+
+
+        <footer
+                style="
+                background-color: #ff6a00;
+                padding: 0;
+                text-align: center;
+                font-size: 16px;
+                color: white;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                height: 35px;
+                line-height: 35px;
+            "
+        >
+            © 2024 Avengers Assemble. All Rights Reserved.
+        </footer>
+    
+        <script src="/static/js/user/script.js"></script>
+    </body>
+</html>
