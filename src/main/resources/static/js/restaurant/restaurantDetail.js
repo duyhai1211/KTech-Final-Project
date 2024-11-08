@@ -99,5 +99,6 @@ async function fetchRestaurantReviews(restaurantId) {
 function reserveTable() {
     const restaurantId = window.location.pathname.split('/').pop(); // Get the current restaurant ID from the URL
     window.location.href = `/views/reservation/create?restaurantId=${restaurantId}`;
+    //
 }
 
