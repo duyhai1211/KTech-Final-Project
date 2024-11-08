@@ -1,45 +1,39 @@
-// Hàm gửi yêu cầu để mở nhà hàng
-function submitRestaurantRequest(event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+document.getElementById("restaurantForm").addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent the form from reloading the page
 
-    // Lấy thông tin từ các trường trong form
+    const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+
+    // Prepare the data from the form
     const restaurantData = {
-        name: document.getElementById('name').value,
-        address: document.getElementById('address').value,
-        capacity: document.getElementById('capacity').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
-        description: document.getElementById('description').value,
-        category: document.getElementById('category').value
+        name: document.getElementById("name").value,
+        address: document.getElementById("address").value,
+        capacity: parseInt(document.getElementById("capacity").value),
+        phoneNumber: document.getElementById("phoneNumber").value,
+        description: document.getElementById("description").value,
+        category: document.getElementById("category").value,
     };
 
-    // Gửi thông tin đến server
-    fetch('/api/restaurant/request-open', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(restaurantData)
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error submitting request: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Hiển thị thông báo thành công
-            document.getElementById('responseMessage').innerText = "Request submitted successfully!";
-            document.getElementById('responseMessage').style.color = 'green';
-
-            // Chuyển hướng đến trang My Restaurant
-            window.location.href = '/views/myrestaurant'; // Đường dẫn đến trang myrestaurant
-        })
-        .catch(error => {
-            // Hiển thị thông báo lỗi
-            document.getElementById('responseMessage').innerText = error.message || "Error submitting request.";
-            document.getElementById('responseMessage').style.color = 'red';
+    try {
+        const response = await fetch("/restaurant/request-open", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(restaurantData)
         });
-}
 
-// Gán sự kiện submit cho form
-document.getElementById('requestOpenForm').addEventListener('submit', submitRestaurantRequest);
+        if (response.ok) {
+            const data = await response.json();
+            alert("Restaurant request submitted successfully!");
+            console.log("Created Open Request:", data);
+            window.location.href = "/views/myrestaurant"; // Redirect to the user's page or home page
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.message || "Failed to submit request"}`);
+        }
+    } catch (error) {
+        console.error("Error submitting restaurant request:", error);
+        alert("An error occurred while submitting the request.");
+    }
+});

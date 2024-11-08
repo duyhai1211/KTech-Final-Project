@@ -58,7 +58,7 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private List<OpenRequest> openRequest = new ArrayList<>();
     public enum Category {
-        JAP, WESTERN,CHINA,PIZZA,CHICKEN
+        JAP, WESTERN,CHINA,PIZZA,CHICKEN,ASIA,KOREAN
     }
 
     public enum Status {

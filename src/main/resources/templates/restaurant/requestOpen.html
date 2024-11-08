@@ -1,52 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Request to Open Restaurant</title>
-  <link rel="stylesheet" href="/static/css/restaurant/requestOpen.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Restaurant</title>
+  <link rel="stylesheet" href="/static/css/restaurant/form.css" />
 </head>
 <body>
 <div class="container">
-  <h1>Request to Open a New Restaurant</h1>
-
-  <a href="/views/myrestaurant" class="btn btn-secondary mb-3">Back</a>
-
-  <form id="requestOpenForm">
-    <!-- Tên nhà hàng -->
+  <h2>Create a New Restaurant</h2>
+  <form id="restaurantForm">
     <label for="name">Restaurant Name:</label>
-    <input type="text" id="name" required>
+    <input type="text" id="name" name="name" placeholder="Enter restaurant name" required />
 
-    <!-- Địa chỉ nhà hàng -->
     <label for="address">Address:</label>
-    <input type="text" id="address" required>
+    <input type="text" id="address" name="address" placeholder="Enter address" required />
 
-    <!-- Sức chứa của nhà hàng -->
     <label for="capacity">Capacity:</label>
-    <input type="number" id="capacity" required>
+    <input type="number" id="capacity" name="capacity" placeholder="Enter capacity" required />
 
-    <!-- Số điện thoại -->
     <label for="phoneNumber">Phone Number:</label>
-    <input type="tel" id="phoneNumber" required>
+    <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number" required />
 
-    <!-- Mô tả nhà hàng -->
     <label for="description">Description:</label>
-    <textarea id="description" rows="4" required></textarea>
+    <textarea id="description" name="description" placeholder="Enter description" required></textarea>
 
-    <!-- Loại hình nhà hàng -->
     <label for="category">Category:</label>
-    <select id="category" required>
+    <select id="category" name="category" required>
       <option value="JAP">Japanese</option>
-      <option value="ITL">Italian</option>
-      <option value="FRN">French</option>
-      <option value="CHN">Chinese</option>
-      <option value="IND">VietNam</option>
-      <!-- Thêm các loại hình nhà hàng khác tùy chọn -->
+      <option value="WESTERN">WESTERN</option>
+      <option value="PIZZA">PIZZA</option>
+      <option value="CHICKEN">CHICKEN</option>
+      <option value="ASIA">ASIA</option>
+      <option value="KOREAN">KOREAN</option>
+      <!-- Add more categories as needed -->
     </select>
 
     <button type="submit">Submit Request</button>
   </form>
-  <p id="responseMessage"></p>
 </div>
+
 <script src="/static/js/restaurant/requestOpen.js"></script>
 </body>
 </html>

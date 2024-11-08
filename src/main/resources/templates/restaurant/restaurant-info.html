@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Restaurant Information</title>
+    <link rel="stylesheet" href="/static/css/restaurant/restaurant-info.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <h1>My Restaurant</h1>
+</header>
+
+<!-- Restaurant Information Section -->
+<section id="restaurant-info">
+    <!-- Restaurant Image -->
+    <img id="restaurant-image" src="/static/img/default-restaurant.png" alt="Restaurant Image" style="width: 200px; height: auto; margin-bottom: 20px;" />
+
+    <!-- Restaurant Details -->
+    <h2 id="restaurant-name">Restaurant Name</h2>
+    <p><strong>Description:</strong> <span id="restaurant-description">A fine dining experience awaits.</span></p>
+
+    <!-- Address, Phone, Category, and Capacity -->
+    <div class="restaurant-detail-grid">
+        <div class="restaurant-detail-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <strong>Address:</strong> <span id="restaurant-address">123 Main St, City</span>
+        </div>
+        <div class="restaurant-detail-item">
+            <i class="fas fa-phone-alt"></i>
+            <strong>Phone:</strong> <span id="restaurant-phone">123-456-7890</span>
+        </div>
+        <div class="restaurant-detail-item">
+            <i class="fas fa-users"></i>
+            <strong>Capacity:</strong> <span id="restaurant-capacity">100</span>
+        </div>
+        <div class="restaurant-detail-item">
+            <i class="fas fa-id-badge"></i>
+            <strong>Registration Number:</strong> <span id="restaurant-registration">REG12345</span>
+        </div>
+        <div class="restaurant-detail-item">
+            <i class="fas fa-utensils"></i>
+            <strong>Category:</strong> <span id="restaurant-category">Cuisine Type</span>
+        </div>
+    </div>
+
+    <!-- Open and Close Times -->
+    <div class="restaurant-detail-grid">
+        <div class="restaurant-detail-item">
+            <i class="far fa-clock"></i>
+            <strong>Open Time:</strong> <span id="restaurant-open-time">10:00 AM</span>
+        </div>
+        <div class="restaurant-detail-item">
+            <i class="far fa-clock"></i>
+            <strong>Close Time:</strong> <span id="restaurant-close-time">10:00 PM</span>
+        </div>
+    </div>
+
+    <!-- Update Button -->
+    <button onclick="redirectToUpdatePage()">Update Information</button>
+</section>
+
+<script src="/static/js/restaurant/restaurant-info.js"></script>
+<script>
+    function redirectToUpdatePage() {
+        window.location.href = "/views/restaurant/update";
+    }
+</script>
+</body>
+</html>

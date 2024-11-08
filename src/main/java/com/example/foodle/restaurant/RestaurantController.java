@@ -49,7 +49,11 @@ public class RestaurantController {
         RestaurantDto restaurant = restaurantService.getRestaurantById(restaurantId);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
-
+    @GetMapping("/current")
+    public ResponseEntity<RestaurantDto> getCurrentRestaurant() {
+        RestaurantDto restaurant =  restaurantService.getRestaurantByOwner();
+        return new ResponseEntity<>(restaurant, HttpStatus.OK);
+    }
     @GetMapping("/all")
     public ResponseEntity<Page<RestaurantDto>> getAllRestaurants(@RequestParam(defaultValue = "0") int page,
                                                                  @RequestParam(defaultValue = "10") int size) {

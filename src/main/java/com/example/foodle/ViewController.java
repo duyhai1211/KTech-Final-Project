@@ -81,5 +81,14 @@ public class ViewController {
         return "restaurant/requestOpen";
     }
 
+    @GetMapping("/restaurant/update")
+    public String restaurantUpdate(){
+        return "restaurant/updateRestaurant";
+    }
+
+    @GetMapping("/restaurant-info")
+    public String restaurantInfo(){
+        return "restaurant/restaurant-info";
+    }
 
 }
