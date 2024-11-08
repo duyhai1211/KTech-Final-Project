@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Reservations</title>
+  <link rel="stylesheet" href="/static/css/reservation/userResservations.css">
+</head>
+<body>
+<header>
+  <h1>Restaurant Reservations</h1>
+</header>
+
+<section id="reservations-list">
+  <p id="no-reservations-message" style="display: none;">No reservations found.</p>
+</section>
+
+<!-- Cancel Reservation Modal -->
+<div id="cancel-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeCancelModal()">&times;</span>
+    <h2>Cancel Reservation</h2>
+    <p>Reason for cancellation:</p>
+    <label for="cancel-reason"></label>
+    <textarea id="cancel-reason" rows="4" placeholder="Enter cancellation reason"></textarea>
+    <button onclick="confirmCancellation()">Confirm</button>
+  </div>
+</div>
+
+<script src="/static/js/reservation/restaurantReservations.js"></script>
+</body>
+</html>

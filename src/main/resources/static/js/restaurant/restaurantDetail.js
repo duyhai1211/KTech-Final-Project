@@ -97,5 +97,7 @@ async function fetchRestaurantReviews(restaurantId) {
 
 // Placeholder reservation function
 function reserveTable() {
-    alert('Reservation functionality coming soon!');
+    const restaurantId = window.location.pathname.split('/').pop(); // Get the current restaurant ID from the URL
+    window.location.href = `/views/reservation/create?restaurantId=${restaurantId}`;
 }
+

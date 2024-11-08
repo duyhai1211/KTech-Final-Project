@@ -90,5 +90,17 @@ public class ViewController {
     public String restaurantInfo(){
         return "restaurant/restaurant-info";
     }
-
+    @GetMapping("/reservation/create")
+    public String reservationCreate(){
+        return "reservation/reservation";
+    }
+    @GetMapping("/users/reservation")
+    public String userReservations() {
+        // This should return the path to the HTML template for listing reservations
+        return "reservation/userReservation";  // Adjust if the path to the template is different
+    }
+    @GetMapping("/restaurant/reservation")
+    public String restaurantReservation() {
+        return "reservation/restaurantReservations";
+    }
 }
